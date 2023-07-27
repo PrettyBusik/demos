@@ -12,7 +12,7 @@ export class APIService {
 
     getForecast(cityName: string): Observable<Prediction> {
         let params = new HttpParams().set("city", cityName);
-        let response: Observable<Prediction> = this.http.get<Prediction>("http://demos.loc/weather-forecast/get-forecast.php", {params: params})
+        let response: Observable<Prediction> = this.http.get<Prediction>("/weather-forecast/get-forecast.php", {params: params})
         return response;
     }
 }

@@ -5,4 +5,6 @@ export const appConfig: ApplicationConfig = {
     providers: [
         importProvidersFrom(HttpClientModule)
     ]
+
+
 };

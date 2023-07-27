@@ -11,4 +11,5 @@ import {ForecastComponent} from "./forecast/forecast.component";
 })
 export class AppComponent {
   title = 'weather-forecast';
+  hh: string = "hu".padStart(2, "0")
 }
