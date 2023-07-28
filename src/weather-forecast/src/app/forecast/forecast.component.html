@@ -1,4 +1,60 @@
-<p>forecast works!</p>
-<p>{{"date before:" + date}} </p>
-<p>{{"date after:"}} {{(date.getTime()) / 1000|formatDate}}</p>
-<p>{{"date after:"}} {{date.getTime() / 1000|formatTime}}</p>
+
+<div class="container">
+    <div class="text-center my-5">
+        <h1 class="display-6">Weather forecast</h1>
+        <form class="input-group mb-3" (submit)="forecastFor(); $event.preventDefault()">
+            <input type="text" class="form-control" placeholder="Name of the city"
+                   [formControl]="formCity">
+            <button class="btn btn-primary"
+                    [disabled]="inProgress">
+                Search
+            </button>
+        </form>
+    </div>
+
+    <div class="welcome-message p-5 lead bg-light text-center"
+         *ngIf="prediction===null && !isError">
+        Enter a name of the city and press "Search" to see the weather forecast
+    </div>
+    <div class="error-message p-5 lead bg-danger-subtle text-center text-danger"
+         *ngIf="prediction===null && isError">
+        Specified city is not found!
+    </div>
+    <div class="row result">
+        <div class="col">
+            <div id="map" *ngIf="prediction!=null"></div>
+        </div>
+        <div class="col" *ngIf="prediction!=null">
+            <ul class="nav nav-tabs">
+                <li class="nav-item"
+                    *ngFor="let day of prediction.forecast.forecastday; let  i = index">
+                    <a [class.active]="i===selectedDay" class="nav-link " href="#"
+                       (click)="change(i); $event.preventDefault()">{{day.date_epoch|formatDate}}</a>
+                </li>
+            </ul>
+            <table class="table table-sm table-hover hours-table">
+                <thead>
+                <tr>
+                    <th>Time</th>
+                    <td>Weather</td>
+                    <td>Temp. (°C)</td>
+                    <td>Wind (m/s)</td>
+                    <td>Pressure (mm)</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let forecast of prediction.forecast.forecastday[selectedDay].hour">
+                    <td class="align-middle">{{forecast.time_epoch|formatTime}}</td>
+                    <td class="align-middle">
+                        <img class="icon" [src]="forecast.condition.icon">
+                        {{forecast.condition.text}}
+                    </td>
+                    <td class="align-middle">{{Math.round(forecast.temp_c)}}</td>
+                    <td class="align-middle">{{convertWind(forecast.wind_kph)}}</td>
+                    <td class="align-middle">{{convertPressure(forecast.pressure_mb)}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
