@@ -14,9 +14,7 @@
         var myMap;
 
         // Дождёмся загрузки API и готовности DOM.
-        ymaps.ready(init);
-
-        function init() {
+        ymaps.ready(() => {
             // Создание экземпляра карты и его привязка к контейнеру с
             // заданным id ("map").
             myMap = new ymaps.Map('map', {
@@ -24,13 +22,10 @@
                 // её центр и коэффициент масштабирования.
                 center: [55.76, 37.64], // Москва
                 zoom: 10,
-                controls:[]
-            }, {
-                searchControlProvider: false
+                controls: []
             });
+        });
 
-
-        }
     </script>
     <style>
         .icon {

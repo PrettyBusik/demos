@@ -6,6 +6,8 @@ import {FormatDatePipe} from "../format-date.pipe";
 import {FormatTimePipe} from "../format-time.pipe";
 import {FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
 
+declare let ymaps: any
+
 @Component({
     selector: 'app-forecast',
     standalone: true,
@@ -22,6 +24,7 @@ export class ForecastComponent {
     isError: boolean = false;
     inProgress = false;
     selectedDay: number = 0;
+    map: any = null;
 
     constructor(private apiService: APIService) {
     }
@@ -33,6 +36,7 @@ export class ForecastComponent {
                 this.prediction = value;
                 this.isError = false
                 this.inProgress = false;
+                this.renderMap();
             },
             error: () => {
                 this.prediction = null;
@@ -52,6 +56,19 @@ export class ForecastComponent {
 
     convertPressure(value: number): number {
         return Math.round(value * 0.75)
+    }
+
+    renderMap() {
+        ymaps.ready(() => {
+            if (this.map !== null) {
+                this.map.destroy();
+            }
+            this.map = new ymaps.Map('map', {
+                center: [this.prediction!.location.lat, this.prediction!.location.lon],
+                zoom: 10,
+                controls: []
+            });
+        });
     }
 
 }
