@@ -1,0 +1,138 @@
+<div class="container">
+    <div class="text-center my-5">
+        <h1 class="display-6">Weather history</h1>
+        <form class="input-group mb-3" (submit)="getAllResults(); $event.preventDefault()">
+            <input type="text" class="form-control" placeholder="Name of the place"
+                   [formControl]="formCityName">
+            <button class="btn btn-primary"
+                    [disabled]="inProgressCurrent && inProgressHistory ">
+                Search
+            </button>
+        </form>
+    </div>
+
+    <div class="welcome-message p-5 lead bg-light text-center"
+         *ngIf="prediction===null &&history===null && !isErrorInHistory && !isErrorInCurrent">
+        Enter a name of the place and press "Search" to see the weather history
+    </div>
+    <div class="error-message p-5 lead bg-danger-subtle text-center text-danger"
+         *ngIf="isErrorInCurrent || isErrorInHistory">
+        Specified place is not found!
+    </div>
+    <div class="d-flex justify-content-center" *ngIf="inProgressCurrent || inProgressHistory">
+        <div class="spinner-border text-center">
+            <span class="visually-hidden"></span>
+        </div>
+    </div>
+    <div class="result" [class.blur]="inProgressCurrent|| inProgressHistory" *ngIf="history!=null && prediction!=null">
+        <div class="row mb-5 align-items-center">
+            <div class="col">
+                <h2 class="display-6 d-flex align-items-center mb-4 justify-content-center">
+                    <img [src]="prediction.current.condition.icon" [title]="prediction.current.condition.text">
+                    <span class="me-3">{{prediction.location.name}}</span>
+                    <span class="fs-4 text-muted">{{prediction.location.region + ", " + prediction.location.country}}</span>
+                </h2>
+                <div class="d-flex align-items-center justify-content-evenly lead mb-3">
+                    <div>
+                        {{"Wind " + convertWind(prediction.current.wind_kph) + " m/s"}}
+                    </div>
+                    <div>
+                        {{"Gust " + convertWind(prediction.current.gust_kph) + " m/s"}}
+                    </div>
+                </div>
+                <div class="d-flex align-items-center justify-content-evenly lead">
+                    <div>
+                        {{"Temp. " + prediction.current.temp_c + " °C"}}
+                    </div>
+                    <div>
+                        {{"Pres. " + convertPressure(prediction.current.pressure_mb) + " mm"}}
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <table class="table table-sm">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th *ngFor="let day of history.forecast.forecastday; let i=index" class="text-center"
+                            (click)="selectDay(i)">
+                            {{day.date_epoch|formatDate}}
+
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="border-end"></td>
+                        <td *ngFor="let day of history.forecast.forecastday" class="text-center">
+                            <img [src]="day.day.condition.icon" class="icon" [title]="day.day.condition.text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="border-end">Temp. (°C)</td>
+                        <td *ngFor="let day of history.forecast.forecastday"
+                            class="text-center">{{day.day.avgtemp_c}}</td>
+                    </tr>
+                    <tr>
+                        <td class="border-end">Wind (m/s)</td>
+                        <td *ngFor="let day of history.forecast.forecastday"
+                            class="text-center">{{convertWind(day.day.maxwind_kph)}}</td>
+                    </tr>
+                    <tr>
+                        <td class="border-end">Precipitation (mm)</td>
+                        <td *ngFor="let day of history.forecast.forecastday"
+                            class="text-center">{{day.day.totalprecip_mm}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row mt-5" *ngIf="selectedDay!=null">
+            <h2 class="text-center display-6"> {{history.forecast.forecastday[selectedDay].date_epoch|formatDate}}
+                Hourly </h2>
+            <div class="col">
+                <table class="table table-sm">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th *ngFor="let allHours of history.forecast.forecastday[selectedDay].hour"
+                            class="text-center">{{allHours.time_epoch|formatTime}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="border-end"></td>
+                        <td class="text-center" *ngFor="let allHours of history.forecast.forecastday[selectedDay].hour">
+                            <img [src]="allHours.condition.icon" class="icon" [title]="allHours.condition.text"></td>
+                    </tr>
+                    <tr>
+                        <td>Temp. (°C)</td>
+                        <td class="text-center"
+                            *ngFor="let allHours of history.forecast.forecastday[selectedDay].hour">{{allHours.temp_c}}</td>
+                    </tr>
+                    <tr>
+                        <td>Wind (m/s)</td>
+                        <td class="text-center"
+                            *ngFor="let allHours of history.forecast.forecastday[selectedDay].hour">{{convertWind(allHours.wind_kph)}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="text-center" *ngFor="let allHours of history.forecast.forecastday[selectedDay].hour">
+                            <i [class]="showDirectionOfWind(allHours.wind_degree)"></i></td>
+                    <tr>
+                        <td>Pressure (mm)</td>
+                        <td class="text-center"
+                            *ngFor="let allHours of history.forecast.forecastday[selectedDay].hour">{{convertPressure(allHours.pressure_mb)}}</td>
+                    </tr>
+                    <tr>
+                        <td>Precipitation (mm)</td>
+                        <td class="text-center"
+                            *ngFor="let allHours of history.forecast.forecastday[selectedDay].hour">{{allHours.precip_mm}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

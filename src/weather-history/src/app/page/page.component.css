@@ -1,0 +1,11 @@
+.blur {
+    filter: blur(10px);
+}
+
+.icon {
+    height: 2rem;
+}
+
+#map {
+    height: 300px
+}

@@ -1,0 +1,52 @@
+{
+  "location": {
+    "name": "Malmo",
+    <-----
+    "region": "Skane Lan",
+    <-----
+    "country": "Sweden",
+    <-----
+    "lat": 55.6,
+    <-----
+    "lon": 13.0,
+    <-----
+    "tz_id": "Europe/Stockholm",
+    "localtime_epoch": 1690902982,
+    "localtime": "2023-08-01 17:16"
+  },
+  "current": {
+    "last_updated_epoch": 1690902900,
+    "last_updated": "2023-08-01 17:15",
+    "temp_c": 18.0,
+    <-----
+    "temp_f": 64.4,
+    "is_day": 1,
+    "condition": {
+      "text": "Moderate or heavy rain with thunder",
+      <-----
+      "icon": "//cdn.weatherapi.com/weather/64x64/day/389.png",
+      <-----
+      "code": 1276
+    },
+    "wind_mph": 4.3,
+    "wind_kph": 6.8,
+    <-----
+    "wind_degree": 190,
+    "wind_dir": "S",
+    "pressure_mb": 993.0,
+    <-----
+    "pressure_in": 29.32,
+    "precip_mm": 0.0,
+    "precip_in": 0.0,
+    "humidity": 77,
+    "cloud": 75,
+    "feelslike_c": 18.0,
+    "feelslike_f": 64.4,
+    "vis_km": 10.0,
+    "vis_miles": 6.0,
+    "uv": 5.0,
+    "gust_mph": 16.8,
+    "gust_kph": 27.0
+    <-----
+  }
+}
