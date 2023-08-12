@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vocabulary</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row flex-nowrap">
+        <div class="d-md-block col-md-3 col-xl-2 px-0 border-end shadow">
+            <div class="d-flex flex-column align-items-start px-0 min-vh-100 sticky-top w-100">
+                <nav class="navbar navbar-expand border-bottom shadow-sm py-0 bg-light d-block d-md-none w-100 mb-3">
+                    <div class="container-fluid">
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item">
+                                <a class="nav-link js-layout-close-menu-link" href="#">
+                                    <i class="bi bi-x-lg"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <div class="w-100">
+                    <div class="mb-3 border-bottom w-100 d-none d-md-block ">
+                        <h1 class="ps-3 py-3 mb-0" style="font-weight: 700; color:#DB1E1E; line-height: 1">Vocabulary</h1>
+                    </div>
+
+                    <div class="list-group w-100">
+                        <a href="/" class="list-group-item list-group-item-action  border-0 rounded-0">
+                            <i class="bi bi-speedometer2 me-1"></i>
+                            Summary </a>
+
+                        <a href="/words" class="list-group-item list-group-item-action border-0 rounded-0">
+                            <i class="bi bi-list-ul me-1"></i>
+                            Words </a>
+                        <a href="/words/new" class="list-group-item list-group-item-action border-0 rounded-0">
+                            <i class="bi bi-plus-lg me-1"></i>
+                            Add new </a>
+
+                        <a href="/training" class="list-group-item list-group-item-action border-0 rounded-0">
+                            <div class="d-flex">
+                <span class="flex-grow-1">
+                    <i class="bi bi-cpu me-1"></i>
+                    Training                </span>
+                                <span><span class="badge text-bg-success">9</span></span>
+                            </div>
+                        </a>
+                        <a href="/words/learn-new" class="list-group-item list-group-item-action border-0 rounded-0">
+                            <i class="bi bi-eyeglasses me-1"></i>
+                            Lear new </a>
+                        <a href="/repetition" class="list-group-item list-group-item-action  border-0 rounded-0">
+                            <i class="bi bi-repeat me-1"></i>
+                            Knowledge test </a>
+
+                        <a href="/settings" class="list-group-item list-group-item-action border-0 rounded-0">
+                            <i class="bi bi-sliders me-1"></i>
+                            Settings </a>
+                    </div>
+
+                </div>
+                <div class="mt-auto w-100">
+                    <div class="mx-auto p-3 d-flex js-player-volume">
+                        <i class="bi bi-volume-up-fill d-none js-icon-high"></i>
+                        <i class="bi bi-volume-down-fill d-none js-icon-medium"></i>
+                        <i class="bi bi-volume-off-fill d-none js-icon-low"></i>
+                        <i class="bi bi-volume-mute-fill d-none js-icon-none"></i>
+                        <input type="range" min="0" max="100" step="1" class="ms-1 form-range js-control">
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col px-4 pt-3 pb-0 line-bottom js-layout-content">
+            <form class="row justify-content-center">
+                <div class="col col-lg-10 col-xl-8">
+                    <h1 class="line-bottom display-6">A new word</h1>
+
+                    <div class="row mb-3">
+                        <div class="col-sm-3"><label class="form-label">Word</label></div>
+                        <div class="col-sm">
+                            <input name="word"
+                                   type="text"
+                                   class="form-control"
+                                   maxlength="255"
+                                   required
+                                   value="">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-sm-3"><label class="form-label">Transcription</label></div>
+                        <div class="col-sm">
+                            <input name="transcription"
+                                   type="text"
+                                   class="form-control"
+                                   maxlength="255"
+                                   value="">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-sm-3"><label class="form-label">Pronunciation</label></div>
+                        <div class="col-sm">
+                            <input name="pronunciation"
+                                   type="text"
+                                   class="form-control js-pronunciation-input"
+                                   maxlength="255"
+                                   value="">
+                            <span class="input-group-text js-pronounce-button" style="display: none">
+                            <a href=""><i class="bi bi-mic"></i></a>
+                        </span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-sm-3"><label class="form-label">Part of speech</label></div>
+                        <div class="col-sm">
+                            <select class="form-select" name="part-of-speech">
+                                <option selected></option>
+                                <option value="1">Noun</option>
+                                <option value="2">Verb</option>
+                                <option value="3">Adjective</option>
+                                <option value="4">Adverb</option>
+                                <option value="5">Preposition</option>
+                                <option value="6">Phrase</option>
+                                <option value="7">Conjunction</option>
+                                <option value="8">Number</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-sm-3"><label class="form-label">Translation</label></div>
+                        <div class="col-sm">
+                            <textarea required name="translation" class="form-control" rows="3"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end">
+                        <button class="btn btn-primary js-submit-btn">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-current_directory=$(dirname "$0")
-
+current_directory=$(realpath "$(dirname "$0")")
 # Prepare backend
 
 rm -r -f "$current_directory/runtime"
@@ -11,8 +10,9 @@ mkdir -m 777 "$current_directory/runtime"
 export NG_CLI_ANALYTICS=0
 
 directories=()
-directories+=("./weather-forecast")
-directories+=("./weather-history")
+directories+=("vocabulary-cards")
+directories+=("weather-forecast")
+directories+=("weather-history")
 
 for sub_directory in "${directories[@]}"; do
   echo "----------------------------------------------------------------------------------------------------"
@@ -21,6 +21,6 @@ for sub_directory in "${directories[@]}"; do
     cd "$current_directory/$sub_directory"
     npm install
     npm run build-prod
-    rm -r .angular
-    rm -r node_modules
+    rm -r -f .angular
+    rm -r -f node_modules
 done
