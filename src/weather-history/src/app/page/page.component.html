@@ -54,7 +54,7 @@
                     <thead>
                     <tr>
                         <th class="narrow-cell"></th>
-                        <th *ngFor="let day of history.forecast.forecastday; let i=index" class="text-center"
+                        <th *ngFor="let day of history.forecast.forecastday; let i=index" class="text-center point"
                             [class]="showDay(i)"
                             (click)="selectDay(i)" (mouseenter)="onmouseenterOnDay(i)"
                             (mouseleave)="onmouseleaveOnDay()">
@@ -65,7 +65,7 @@
                     <tbody>
                     <tr>
                         <td></td>
-                        <td *ngFor="let day of history.forecast.forecastday; let i=index" class="text-center"
+                        <td *ngFor="let day of history.forecast.forecastday; let i=index" class="text-center point"
                             [class]="showDay(i)"
                             (click)="selectDay(i)" (mouseenter)="onmouseenterOnDay(i)"
                             (mouseleave)="onmouseleaveOnDay()">
@@ -75,7 +75,7 @@
                     <tr>
                         <td>Temp. (°C)</td>
                         <td *ngFor="let day of history.forecast.forecastday; let i=index"
-                            class="text-center" [class]="showTemperature(prediction.current.temp_c)"
+                            class="text-center point" [class]="showTemperature(prediction.current.temp_c)"
                             [class]="showDay(i)"
                             (click)="selectDay(i)" (mouseenter)="onmouseenterOnDay(i)"
                             (mouseleave)="onmouseleaveOnDay()">
@@ -84,7 +84,7 @@
                     </tr>
                     <tr>
                         <td>Wind (m/s)</td>
-                        <td *ngFor="let day of history.forecast.forecastday; let i=index" class="text-center"
+                        <td *ngFor="let day of history.forecast.forecastday; let i=index" class="text-center point"
                             [class]="showDay(i)"
                             (click)="selectDay(i)" (mouseenter)="onmouseenterOnDay(i)"
                             (mouseleave)="onmouseleaveOnDay()">
@@ -94,7 +94,7 @@
                     <tr>
                         <td>Precipitation (mm)</td>
                         <td *ngFor="let day of history.forecast.forecastday; let i=index"
-                            class="text-center" [class]="showDay(i)"
+                            class="text-center point" [class]="showDay(i)"
                             (click)="selectDay(i)" (mouseenter)="onmouseenterOnDay(i)"
                             (mouseleave)="onmouseleaveOnDay()">
                             {{day.day.totalprecip_mm|roundUp}}
@@ -110,7 +110,7 @@
                 Hourly </h2>
             <div class="col">
                 <div class="table-responsive">
-                    <table class="table table-sm">
+                    <table class="table table-sm ">
                         <thead>
                         <tr>
                             <th></th>

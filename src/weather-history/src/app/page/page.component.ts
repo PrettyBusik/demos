@@ -77,6 +77,7 @@ export class PageComponent {
   }
 
   getAllResults() {
+    this.selectedDay = null;
     this.forecastForNow();
     this.historyForecast();
   }

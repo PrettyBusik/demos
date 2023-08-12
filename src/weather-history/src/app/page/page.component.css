@@ -37,3 +37,7 @@
 .narrow-cell {
     width: 1px;
 }
+
+.point {
+    cursor: pointer;
+}
