@@ -9,3 +9,31 @@
 #map {
     height: 300px
 }
+
+.very-cold {
+    color: blue;
+}
+
+.cold {
+    color: aqua;
+}
+
+.warm {
+    color: black;
+}
+
+.hot {
+    color: orange;
+}
+
+.very-hot {
+    color: red;
+}
+
+.select-column {
+    background-color: lightgrey;
+}
+
+.narrow-cell {
+    width: 1px;
+}

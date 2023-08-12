@@ -6,11 +6,12 @@ import {CurrentPrediction} from "../ValueObjectsCurrent";
 import {History} from "../ValueObjectsHistory";
 import {FormatDatePipe} from "../format_date";
 import {FormatTimePipe} from "../format_time";
+import {RoundUpPipe} from "../roundUpPipe";
 
 @Component({
   selector: 'app-page',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormatDatePipe, FormatTimePipe],
+  imports: [CommonModule, ReactiveFormsModule, FormatDatePipe, FormatTimePipe, RoundUpPipe],
   templateUrl: './page.component.html',
   styleUrls: ['./page.component.css']
 })
@@ -27,6 +28,8 @@ export class PageComponent {
   inProgressHistory: boolean = false;
 
   selectedDay: number | null = null;
+  currentDay: number | null = null;
+  currentHour: number | null = null;
 
   constructor(public service: APIService) {
   }
@@ -118,4 +121,58 @@ export class PageComponent {
     return ""
   }
 
+  showTemperature(temperature: number): string {
+    if (temperature < 0) {
+      return "very-cold"
+    }
+
+    if (temperature > 0 && temperature <= 10) {
+      return "cold"
+    }
+
+    if (temperature === 11 && temperature < 25) {
+      return "warm"
+    }
+
+    if (temperature >= 25 && temperature <= 35) {
+      return "hot"
+    }
+
+    if (temperature > 36) {
+      return "very-hot"
+    }
+    return ""
+  }
+
+  showDay(i: number): string {
+    if (this.currentDay === i) {
+      return "select-column"
+    }
+    return ""
+  }
+
+  onmouseenterOnDay(i: number) {
+    this.currentDay = i;
+    console.log(this.currentDay)
+  }
+
+  onmouseleaveOnDay() {
+    this.currentDay = null;
+    console.log(this.currentDay)
+  }
+
+  showHour(i: number): string {
+    if (this.currentHour === i) {
+      return "select-column"
+    }
+    return ""
+  }
+
+  onmouseenterOnHour(i: number) {
+    this.currentHour = i;
+  }
+
+  onmouseleaveOnHour() {
+    this.currentHour = null;
+  }
 }

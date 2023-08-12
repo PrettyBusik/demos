@@ -42,10 +42,10 @@
                 </div>
                 <div class="d-flex align-items-center justify-content-evenly lead">
                     <div>
-                        {{"Temp. " + prediction.current.temp_c + " °C"}}
+                        Temp. {{prediction.current.temp_c|roundUp}} °C
                     </div>
                     <div>
-                        {{"Pres. " + convertPressure(prediction.current.pressure_mb) + " mm"}}
+                        Pres. {{convertPressure(prediction.current.pressure_mb)|roundUp}}mm
                     </div>
                 </div>
             </div>
@@ -53,35 +53,52 @@
                 <table class="table table-sm">
                     <thead>
                     <tr>
-                        <th></th>
+                        <th class="narrow-cell"></th>
                         <th *ngFor="let day of history.forecast.forecastday; let i=index" class="text-center"
-                            (click)="selectDay(i)">
+                            [class]="showDay(i)"
+                            (click)="selectDay(i)" (mouseenter)="onmouseenterOnDay(i)"
+                            (mouseleave)="onmouseleaveOnDay()">
                             {{day.date_epoch|formatDate}}
-
                         </th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td class="border-end"></td>
-                        <td *ngFor="let day of history.forecast.forecastday" class="text-center">
+                        <td></td>
+                        <td *ngFor="let day of history.forecast.forecastday; let i=index" class="text-center"
+                            [class]="showDay(i)"
+                            (click)="selectDay(i)" (mouseenter)="onmouseenterOnDay(i)"
+                            (mouseleave)="onmouseleaveOnDay()">
                             <img [src]="day.day.condition.icon" class="icon" [title]="day.day.condition.text">
                         </td>
                     </tr>
                     <tr>
-                        <td class="border-end">Temp. (°C)</td>
-                        <td *ngFor="let day of history.forecast.forecastday"
-                            class="text-center">{{day.day.avgtemp_c}}</td>
+                        <td>Temp. (°C)</td>
+                        <td *ngFor="let day of history.forecast.forecastday; let i=index"
+                            class="text-center" [class]="showTemperature(prediction.current.temp_c)"
+                            [class]="showDay(i)"
+                            (click)="selectDay(i)" (mouseenter)="onmouseenterOnDay(i)"
+                            (mouseleave)="onmouseleaveOnDay()">
+                            {{day.day.avgtemp_c|roundUp}}
+                        </td>
                     </tr>
                     <tr>
-                        <td class="border-end">Wind (m/s)</td>
-                        <td *ngFor="let day of history.forecast.forecastday"
-                            class="text-center">{{convertWind(day.day.maxwind_kph)}}</td>
+                        <td>Wind (m/s)</td>
+                        <td *ngFor="let day of history.forecast.forecastday; let i=index" class="text-center"
+                            [class]="showDay(i)"
+                            (click)="selectDay(i)" (mouseenter)="onmouseenterOnDay(i)"
+                            (mouseleave)="onmouseleaveOnDay()">
+                            {{convertWind(day.day.maxwind_kph)}}
+                        </td>
                     </tr>
                     <tr>
-                        <td class="border-end">Precipitation (mm)</td>
-                        <td *ngFor="let day of history.forecast.forecastday"
-                            class="text-center">{{day.day.totalprecip_mm}}</td>
+                        <td>Precipitation (mm)</td>
+                        <td *ngFor="let day of history.forecast.forecastday; let i=index"
+                            class="text-center" [class]="showDay(i)"
+                            (click)="selectDay(i)" (mouseenter)="onmouseenterOnDay(i)"
+                            (mouseleave)="onmouseleaveOnDay()">
+                            {{day.day.totalprecip_mm|roundUp}}
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -92,46 +109,76 @@
             <h2 class="text-center display-6"> {{history.forecast.forecastday[selectedDay].date_epoch|formatDate}}
                 Hourly </h2>
             <div class="col">
-                <table class="table table-sm">
-                    <thead>
-                    <tr>
-                        <th></th>
-                        <th *ngFor="let allHours of history.forecast.forecastday[selectedDay].hour"
-                            class="text-center">{{allHours.time_epoch|formatTime}}</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td class="border-end"></td>
-                        <td class="text-center" *ngFor="let allHours of history.forecast.forecastday[selectedDay].hour">
-                            <img [src]="allHours.condition.icon" class="icon" [title]="allHours.condition.text"></td>
-                    </tr>
-                    <tr>
-                        <td>Temp. (°C)</td>
-                        <td class="text-center"
-                            *ngFor="let allHours of history.forecast.forecastday[selectedDay].hour">{{allHours.temp_c}}</td>
-                    </tr>
-                    <tr>
-                        <td>Wind (m/s)</td>
-                        <td class="text-center"
-                            *ngFor="let allHours of history.forecast.forecastday[selectedDay].hour">{{convertWind(allHours.wind_kph)}}</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td class="text-center" *ngFor="let allHours of history.forecast.forecastday[selectedDay].hour">
-                            <i [class]="showDirectionOfWind(allHours.wind_degree)"></i></td>
-                    <tr>
-                        <td>Pressure (mm)</td>
-                        <td class="text-center"
-                            *ngFor="let allHours of history.forecast.forecastday[selectedDay].hour">{{convertPressure(allHours.pressure_mb)}}</td>
-                    </tr>
-                    <tr>
-                        <td>Precipitation (mm)</td>
-                        <td class="text-center"
-                            *ngFor="let allHours of history.forecast.forecastday[selectedDay].hour">{{allHours.precip_mm}}</td>
-                    </tr>
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th *ngFor="let allHours of history.forecast.forecastday[selectedDay].hour; let i=index"
+                                (mouseenter)="onmouseenterOnHour(i)" (mouseleave)="onmouseleaveOnHour()"
+                                [class]="showHour(i)"
+                                class="text-center">
+                                {{allHours.time_epoch|formatTime}}
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td></td>
+                            <td class="text-center"
+                                *ngFor="let allHours of history.forecast.forecastday[selectedDay].hour; let i=index"
+                                (mouseenter)="onmouseenterOnHour(i)" (mouseleave)="onmouseleaveOnHour()"
+                                [class]="showHour(i)">
+                                <img [src]="allHours.condition.icon" class="icon" [title]="allHours.condition.text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Temp. (°C)</td>
+                            <td class="text-center" [class]="showTemperature(allHours.temp_c)"
+                                *ngFor="let allHours of history.forecast.forecastday[selectedDay].hour; let i=index"
+                                (mouseenter)="onmouseenterOnHour(i)" (mouseleave)="onmouseleaveOnHour()"
+                                [class]="showHour(i)">
+                                {{allHours.temp_c|roundUp}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Wind (m/s)</td>
+                            <td class="text-center"
+                                *ngFor="let allHours of history.forecast.forecastday[selectedDay].hour; let i=index"
+                                (mouseenter)="onmouseenterOnHour(i)" (mouseleave)="onmouseleaveOnHour()"
+                                [class]="showHour(i)">
+                                {{convertWind(allHours.wind_kph)}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-center"
+                                *ngFor="let allHours of history.forecast.forecastday[selectedDay].hour; let i=index"
+                                (mouseenter)="onmouseenterOnHour(i)" (mouseleave)="onmouseleaveOnHour()"
+                                [class]="showHour(i)">
+                                <i [class]="showDirectionOfWind(allHours.wind_degree)"></i>
+                            </td>
+                        <tr>
+                            <td>Pressure (mm)</td>
+                            <td class="text-center"
+                                *ngFor="let allHours of history.forecast.forecastday[selectedDay].hour; let i=index"
+                                (mouseenter)="onmouseenterOnHour(i)" (mouseleave)="onmouseleaveOnHour()"
+                                [class]="showHour(i)">
+                                {{convertPressure(allHours.pressure_mb)}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Precipitation (mm)</td>
+                            <td class="text-center"
+                                *ngFor="let allHours of history.forecast.forecastday[selectedDay].hour; let i=index"
+                                (mouseenter)="onmouseenterOnHour(i)" (mouseleave)="onmouseleaveOnHour()"
+                                [class]="showHour(i)">
+                                {{allHours.precip_mm|roundUp}}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
