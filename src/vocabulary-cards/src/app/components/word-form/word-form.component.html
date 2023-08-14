@@ -1,0 +1,76 @@
+<div class="col px-4 pt-3 pb-0 line-bottom js-layout-content">
+    <form class="row justify-content-center"
+          [formGroup]="createWordForm">
+        <div class="col col-lg-10 col-xl-8">
+            <h1 class="line-bottom display-6">A new word</h1>
+
+            <div class="row mb-3">
+                <div class="col-sm-3"><label class="form-label">Word</label></div>
+                <div class="col-sm">
+                    <input name="word"
+                           type="text"
+                           class="form-control"
+                           maxlength="255"
+                           required
+                           value=""
+                           [formControlName]="'wordForm'">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-sm-3"><label class="form-label">Transcription</label></div>
+                <div class="col-sm">
+                    <input name="transcription"
+                           type="text"
+                           class="form-control"
+                           maxlength="255"
+                           value=""
+                           [formControlName]="'transcriptionForm'">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-sm-3"><label class="form-label">Pronunciation</label></div>
+                <div class="col-sm">
+                    <input name="pronunciation"
+                           type="text"
+                           class="form-control js-pronunciation-input"
+                           maxlength="255"
+                           value=""
+                           [formControlName]="'pronunciationForm'">
+                    <span class="input-group-text js-pronounce-button" style="display: none">
+                            <a href=""><i class="bi bi-mic"></i></a>
+                        </span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-sm-3"><label class="form-label">Part of speech</label></div>
+                <div class="col-sm">
+                    <select class="form-select" name="part-of-speech" [formControlName]="'partOfSpeechForm'">
+                        <option value="Noun">Noun</option>
+                        <option value="Verb">Verb</option>
+                        <option value="Adjective">Adjective</option>
+                        <option value="Adverb">Adverb</option>
+                        <option value="Preposition">Preposition</option>
+                        <option value="Phrase">Phrase</option>
+                        <option value="Conjunction">Conjunction</option>
+                        <option value="Number">Number</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-sm-3"><label class="form-label">Translation</label></div>
+                <div class="col-sm">
+                            <textarea required name="translation" class="form-control" rows="3"
+                                      [formControlName]="'translationForm'"></textarea>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-primary js-submit-btn" (click)="onsubmit()">Save</button>
+            </div>
+        </div>
+    </form>
+</div>

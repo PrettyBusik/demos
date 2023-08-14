@@ -1,0 +1,74 @@
+<div class="container-fluid">
+    <div class="row flex-nowrap">
+        <div class="d-md-block col-md-3 col-xl-2 px-0 border-end shadow">
+            <div class="d-flex flex-column align-items-start px-0 min-vh-100 sticky-top w-100">
+                <nav class="navbar navbar-expand border-bottom shadow-sm py-0 bg-light d-block d-md-none w-100 mb-3">
+                    <div class="container-fluid">
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item">
+                                <a class="nav-link js-layout-close-menu-link" href="#">
+                                    <i class="bi bi-x-lg"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <div class="w-100">
+                    <div class="mb-3 border-bottom w-100 d-none d-md-block ">
+                        <h1 class="ps-3 py-3 mb-0" style="font-weight: 700; color:#DB1E1E; line-height: 1">
+                            Vocabulary</h1>
+                    </div>
+
+                    <div class="list-group w-100">
+                        <a href="/" class="list-group-item list-group-item-action  border-0 rounded-0">
+                            <i class="bi bi-speedometer2 me-1"></i>
+                            Summary </a>
+
+                        <a href="/words" class="list-group-item list-group-item-action border-0 rounded-0">
+                            <i class="bi bi-list-ul me-1"></i>
+                            Words </a>
+                        <a href="/words/new" class="list-group-item list-group-item-action border-0 rounded-0">
+                            <i class="bi bi-plus-lg me-1"></i>
+                            Add new </a>
+
+                        <a href="/training" class="list-group-item list-group-item-action border-0 rounded-0">
+                            <div class="d-flex">
+                <span class="flex-grow-1">
+                    <i class="bi bi-cpu me-1"></i>
+                    Training                </span>
+                                <span><span class="badge text-bg-success">9</span></span>
+                            </div>
+                        </a>
+                        <a href="/words/learn-new" class="list-group-item list-group-item-action border-0 rounded-0">
+                            <i class="bi bi-eyeglasses me-1"></i>
+                            Lear new </a>
+                        <a href="/repetition" class="list-group-item list-group-item-action  border-0 rounded-0">
+                            <i class="bi bi-repeat me-1"></i>
+                            Knowledge test </a>
+
+                        <a href="/settings" class="list-group-item list-group-item-action border-0 rounded-0">
+                            <i class="bi bi-sliders me-1"></i>
+                            Settings </a>
+                    </div>
+
+                </div>
+                <div class="mt-auto w-100">
+                    <div class="mx-auto p-3 d-flex js-player-volume">
+                        <i class="bi bi-volume-up-fill d-none js-icon-high"></i>
+                        <i class="bi bi-volume-down-fill d-none js-icon-medium"></i>
+                        <i class="bi bi-volume-off-fill d-none js-icon-low"></i>
+                        <i class="bi bi-volume-mute-fill d-none js-icon-none"></i>
+                        <input type="range" min="0" max="100" step="1" class="ms-1 form-range js-control">
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <app-word-form></app-word-form>
+
+    </div>
+</div>
+
