@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Word} from "../word";
+import {Page, Word} from "../word";
 
 @Injectable({
     providedIn: 'root'
@@ -54,6 +54,27 @@ export class WordRepositoryService {
             }
         }
         return null;
+    }
+
+    getPage(numberPage: number, size: number): Page {
+        let allWords: Word[] = this.getAllWords();
+
+        let wordsForShowing: Word[] = []
+        let totalAmountPages: number = Math.ceil(allWords.length / size);
+
+        let finish: number = (numberPage * size) - 1;
+        let beginning: number = (finish - size) + 1;
+
+
+        if (finish > allWords.length - 1) {
+            finish = allWords.length - 1;
+        }
+
+        for (let i = beginning; i <= finish; i++) {
+            wordsForShowing.push(allWords[i]);
+        }
+
+        return new Page(wordsForShowing, totalAmountPages);
     }
 
 }

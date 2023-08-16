@@ -71,7 +71,7 @@ export class WordFormComponent {
     }
 
     showPage() {
-        console.log(this.wordsRepository.getPage(1, 3))
+        console.log(this.wordsRepository.getPage(2, 3))
     }
 
 }
