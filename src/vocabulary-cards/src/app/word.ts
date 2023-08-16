@@ -16,3 +16,14 @@ export class Word {
         this.translation = translation;
     }
 }
+
+export class Page {
+    words: Word[];
+    totalPages: number;
+
+
+    constructor(words: Word[], totalPages: number) {
+        this.words = words;
+        this.totalPages = totalPages;
+    }
+}

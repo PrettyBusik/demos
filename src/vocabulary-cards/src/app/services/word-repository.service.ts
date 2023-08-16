@@ -45,5 +45,16 @@ export class WordRepositoryService {
         window.localStorage.setItem("lastId", numberID.toString());
         return numberID;
     }
+
+    getWordByID(id: number): Word | null {
+        let allWords = this.getAllWords();
+        for (let word of allWords) {
+            if (word.id === id) {
+                return word
+            }
+        }
+        return null;
+    }
+
 }
 
