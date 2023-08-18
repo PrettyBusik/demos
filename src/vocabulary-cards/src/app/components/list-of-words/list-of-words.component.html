@@ -38,9 +38,9 @@
             <th colspan="2">Part of speech</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody *ngFor="let word of listWords.words">
         <tr class="js-word word ">
-            <td class="">Attic</td>
+            <td class="">{{word.word}}</td>
             <td class="text-nowrap pe-0 cell-narrow">
                 <a href="https://www.ldoceonline.com/media/english/breProns/attic0205.mp3?version=1.2.63"
                    data-bs-toggle="tooltip"
@@ -49,72 +49,20 @@
 
             </td>
             <td class="text-nowrap ps-0">
-                <span class="transcription">ˈætɪk</span>
+                <span class="transcription">{{word.transcription}}</span>
             </td>
-            <td class="">Чердак;<br/>
-                Мансарда;
-            </td>
-            <td>
-                <i class="text-warning bi bi-1-circle" data-bs-toggle="tooltip"
-                   data-bs-title="Next training: 06.02.2023"></i>
-            </td>
-            <td class="text-body-tertiary">
-                Noun
-            </td>
-            <td class="text-nowrap cell-narrow">
-                <a href="/words/25" data-bs-toggle="tooltip" data-bs-title="Edit"><i class="bi bi-pencil"></i></a>
-            </td>
-        </tr>
-        <tr class="js-word word ">
-            <td class="">Attic</td>
-            <td class="text-nowrap pe-0 cell-narrow">
-                <a href="https://www.ldoceonline.com/media/english/breProns/attic0205.mp3?version=1.2.63"
-                   data-bs-toggle="tooltip"
-                   data-bs-title="Pronounce"
-                   class="js-pronounce-link me-1"><i class="bi bi-mic"></i></a>
-
-            </td>
-            <td class="text-nowrap ps-0">
-                <span class="transcription">ˈætɪk</span>
-            </td>
-            <td class="">Чердак;<br/>
-                Мансарда;
+            <td class="translation">{{word.translation}}<br/>
             </td>
             <td>
                 <i class="text-warning bi bi-1-circle" data-bs-toggle="tooltip"
                    data-bs-title="Next training: 06.02.2023"></i>
             </td>
             <td class="text-body-tertiary">
-                Noun
+                {{word.partOfSpeech}}
             </td>
             <td class="text-nowrap cell-narrow">
-                <a href="/words/25" data-bs-toggle="tooltip" data-bs-title="Edit"><i class="bi bi-pencil"></i></a>
-            </td>
-        </tr>
-        <tr class="js-word word ">
-            <td class="">Attic</td>
-            <td class="text-nowrap pe-0 cell-narrow">
-                <a href="https://www.ldoceonline.com/media/english/breProns/attic0205.mp3?version=1.2.63"
-                   data-bs-toggle="tooltip"
-                   data-bs-title="Pronounce"
-                   class="js-pronounce-link me-1"><i class="bi bi-mic"></i></a>
-
-            </td>
-            <td class="text-nowrap ps-0">
-                <span class="transcription">ˈætɪk</span>
-            </td>
-            <td class="">Чердак;<br/>
-                Мансарда;
-            </td>
-            <td>
-                <i class="text-warning bi bi-1-circle" data-bs-toggle="tooltip"
-                   data-bs-title="Next training: 06.02.2023"></i>
-            </td>
-            <td class="text-body-tertiary">
-                Noun
-            </td>
-            <td class="text-nowrap cell-narrow">
-                <a href="/words/25" data-bs-toggle="tooltip" data-bs-title="Edit"><i class="bi bi-pencil"></i></a>
+                <a [routerLink]="'/words/'+word.id" data-bs-toggle="tooltip" data-bs-title="Edit"><i
+                        class="bi bi-pencil"></i></a>
             </td>
         </tr>
         </tbody>

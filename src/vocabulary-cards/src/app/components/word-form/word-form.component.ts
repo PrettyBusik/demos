@@ -26,7 +26,6 @@ export class WordFormComponent {
             }
             this.initForm();
         })
-        this.showPage()
     }
 
 
@@ -63,15 +62,10 @@ export class WordFormComponent {
 
         if (this.currentWord === null) {
             this.wordsRepository.addWord(newWord);
-            console.log(this.wordsRepository.getAllWords())
         } else {
             this.wordsRepository.updateWord(newWord);
         }
         this.createWordForm.reset()
-    }
-
-    showPage() {
-        console.log(this.wordsRepository.getPage(2, 3))
     }
 
 }

@@ -1,1 +1,27 @@
-/* You can add global styles to this file, and also import other style files */
+.cell-narrow {
+    width: 1px;
+}
+
+.line-bottom {
+    margin-bottom: 2rem;
+}
+
+.line-top {
+    margin-top: 2rem;
+}
+
+.transcription::after {
+    content: "/";
+}
+
+.transcription::before {
+    content: "/";
+}
+
+.word {
+    text-transform: capitalize;
+}
+
+.translation {
+    text-transform: capitalize;
+}

@@ -27,3 +27,17 @@ export class Page {
         this.totalPages = totalPages;
     }
 }
+
+
+export class WordsFilter {
+    search: string | null;
+    partOfSpeech: string | null;
+
+
+    constructor(search: string | null, partOfSpeech: string | null,
+    ) {
+        this.search = search;
+        this.partOfSpeech = partOfSpeech;
+    }
+
+}

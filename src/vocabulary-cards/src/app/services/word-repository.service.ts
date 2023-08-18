@@ -1,17 +1,31 @@
 import {Injectable} from '@angular/core';
-import {Page, Word} from "../word";
+import {Page, Word, WordsFilter} from "../word";
 
 @Injectable({
     providedIn: 'root'
 })
 export class WordRepositoryService {
 
-    getAllWords(): Word[] {
+    private getAllWords(): Word[] {
         let allWords = window.localStorage.getItem("words");
         if (allWords === null) {
             return []
         }
-        return JSON.parse(allWords);
+
+        let allWordsArray: Word[] = JSON.parse(allWords);
+        allWordsArray = allWordsArray.sort((a: Word, b: Word): number => {
+            if (a.word.toLowerCase() < b.word.toLowerCase()) {
+                return -1;
+            }
+            if (a.word.toLowerCase() > b.word.toLowerCase()) {
+                return 1;
+            }
+            return 0;
+        });
+
+        console.log(allWordsArray)
+        return allWordsArray;
+
     }
 
     addWord(word: Word) {
@@ -56,9 +70,14 @@ export class WordRepositoryService {
         return null;
     }
 
-    getPage(numberPage: number, size: number): Page {
+    getPage(numberPage: number, size: number, filters: WordsFilter): Page {
         let allWords: Word[] = this.getAllWords();
+        let filteredWords = this.filter(allWords, filters);
+        return this.paginate(filteredWords, numberPage, size);
 
+    }
+
+    private paginate(allWords: Word[], numberPage: number, size: number): Page {
         let wordsForShowing: Word[] = []
         let totalAmountPages: number = Math.ceil(allWords.length / size);
 
@@ -77,5 +96,17 @@ export class WordRepositoryService {
         return new Page(wordsForShowing, totalAmountPages);
     }
 
+    private filter(allWords: Word[], filters: WordsFilter): Word[] {
+        return allWords.filter((word: Word) => {
+            if (filters.partOfSpeech != null && word.partOfSpeech != filters.partOfSpeech) {
+                return false
+            }
+
+            if (filters.search != null && !word.word.includes(filters.search)) {
+                return false
+            }
+            return true;
+        })
+    }
 }
 
