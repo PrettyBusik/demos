@@ -26,29 +26,29 @@ export class PaginatorComponent {
     }
 
     countPages(): number[] {
-        let half = (this.visiblePageNumber - 1) / 2;
+        let half: number = (this.visiblePageNumber - 1) / 2;
+        let fromTo: number[] = [];
+
+        if (this.totalPageNumber <= this.visiblePageNumber) {
+            fromTo.push(1, this.totalPageNumber)
+            return fromTo;
+        }
+
+        if (this.currentPage < half) {
+            fromTo.push(1, this.visiblePageNumber);
+            return fromTo;
+        }
+
+        if (this.currentPage > this.totalPageNumber - half) {
+            fromTo.push(this.totalPageNumber + 1 - this.visiblePageNumber, this.totalPageNumber)
+            return fromTo;
+        }
 
         let beginning = this.currentPage - Math.floor(half);
         let finish = this.currentPage + Math.ceil(half);
-        let fromTo: number[] = [];
 
-
-        if (beginning < 1) {
-            beginning = 1;
-            finish = beginning + this.visiblePageNumber -1;
-        }
-        if (finish > this.totalPageNumber) {
-            finish = this.totalPageNumber;
-            beginning = finish - this.visiblePageNumber+1;
-            if(beginning<1){
-                beginning=1;
-            }
-        }
-
-        console.log(beginning, finish, this.currentPage, this.visiblePageNumber)
         fromTo.push(beginning, finish)
-        return fromTo
-
+        return fromTo;
     }
 
 }
