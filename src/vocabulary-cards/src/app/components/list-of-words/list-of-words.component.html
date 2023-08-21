@@ -69,20 +69,7 @@
     </table>
 </div>
 
-<nav>
-    <ul class="pagination justify-content-end pagination-sm my-0">
-        <li class="page-item">
-            <a class="page-link" href="/words?page=1"><i class="bi bi-skip-start"></i></a>
-        </li>
-        <li class="page-item active">
-            <a class="page-link" href="/words?page=1">1</a>
-        </li>
-        <li class="page-item ">
-            <a class="page-link" href="/words?page=2">2</a>
-        </li>
-
-        <li class="page-item">
-            <a class="page-link" href="/words?page=2"><i class="bi bi-skip-end"></i></a>
-        </li>
-    </ul>
-</nav>
+<app-paginater
+[currentPage]="10"
+[totalPageNumber]="20">
+</app-paginater>

@@ -4,11 +4,12 @@ import {ActivatedRoute, RouterLink} from "@angular/router";
 import {Subscription} from "rxjs";
 import {WordRepositoryService} from "../../services/word-repository.service";
 import {Page, WordsFilter} from "../../word";
+import {PaginatorComponent} from "../paginater/paginator.component";
 
 @Component({
     selector: 'app-list-of-words',
     standalone: true,
-    imports: [CommonModule, RouterLink],
+    imports: [CommonModule, RouterLink, PaginatorComponent],
     templateUrl: './list-of-words.component.html',
     styleUrls: ['./list-of-words.component.css']
 })
@@ -27,7 +28,6 @@ export class ListOfWordsComponent {
             } else {
                 this.page = Number(queryParam["page"]);
             }
-            console.log(queryParam)
 
             this.listWords = this.wordRepository.getPage(
                 this.page,

@@ -1,0 +1,14 @@
+<nav>
+    <ul class="pagination justify-content-end pagination-sm my-0">
+        <li class="page-item">
+            <a class="page-link" [routerLink]="[]" [queryParams]="{page:1}" [queryParamsHandling]="'merge'"><i class="bi bi-skip-start"></i></a>
+        </li>
+        <li class="page-item" [class.active]="numberPage===currentPage"
+            *ngFor="let numberPage of getNumbersPages()">
+            <a class="page-link"  [routerLink]="[]" [queryParams]="{page:numberPage}" [queryParamsHandling]="'merge'">{{numberPage}}</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" [routerLink]="[]" [queryParams]="{page:totalPageNumber}" [queryParamsHandling]="'merge'"><i class="bi bi-skip-end"></i></a>
+        </li>
+    </ul>
+</nav>

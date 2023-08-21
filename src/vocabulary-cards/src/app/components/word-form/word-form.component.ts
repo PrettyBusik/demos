@@ -19,7 +19,6 @@ export class WordFormComponent {
     constructor(private wordsRepository: WordRepositoryService,
                 private activateRouted: ActivatedRoute) {
         activateRouted.params.subscribe(params => {
-            console.log(params)
             if (params["id"] != null) {
                 this.currentWord = this.wordsRepository.getWordByID(Number(params["id"]));
                 console.log(this.currentWord)
