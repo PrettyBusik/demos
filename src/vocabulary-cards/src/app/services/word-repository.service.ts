@@ -22,8 +22,8 @@ export class WordRepositoryService {
             }
             return 0;
         });
-
-        console.log(allWordsArray)
+        //
+        // console.log(allWordsArray)
         return allWordsArray;
 
     }

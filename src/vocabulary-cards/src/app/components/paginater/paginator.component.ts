@@ -17,7 +17,6 @@ export class PaginatorComponent {
     getNumbersPages(): number[] {
         let fromTo = this.countPages();
 
-        console.log(fromTo)
         let allPages: number[] = [];
         for (let i = fromTo[0]; i <= fromTo[1]; i++) {
             allPages.push(i);

@@ -21,7 +21,6 @@ export class WordFormComponent {
         activateRouted.params.subscribe(params => {
             if (params["id"] != null) {
                 this.currentWord = this.wordsRepository.getWordByID(Number(params["id"]));
-                console.log(this.currentWord)
             }
             this.initForm();
         })
