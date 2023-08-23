@@ -47,7 +47,7 @@
                         data-bs-toggle="tooltip"
                         data-bs-title="Pronounce"
                         class="js-pronounce-link me-1">
-                    <i (click)="audio(word.pronunciation)" class="bi bi-mic"></i>
+                    <i (click)="audio(word.pronunciation); $event.preventDefault()" class="bi bi-mic"></i>
                 </a>
             </td>
             <td class="text-nowrap ps-0">
