@@ -69,7 +69,13 @@
             </div>
 
             <div class="d-flex justify-content-end">
-                <button class="btn btn-primary js-submit-btn" (click)="onsubmit()">Save</button>
+                <button class="btn btn-primary" (click)="onsubmit()">Save</button>
+                <button type="button" class="btn btn-outline-danger ms-3" *ngIf="currentWord!=null" (click)="remove()">
+                    Remove
+                </button>
             </div>
         </div>
     </form>
+
+
+    <app-rangeinput [min]="1" [max]="10" [step]="1" [controler]="myformControl"></app-rangeinput>

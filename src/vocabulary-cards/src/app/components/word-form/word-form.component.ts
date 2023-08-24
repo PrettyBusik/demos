@@ -3,24 +3,29 @@ import {CommonModule} from '@angular/common';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {WordRepositoryService} from "../../services/word-repository.service";
 import {Word} from "../../word";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {RangeInputComponent} from "../rangeinput/range-input.component";
 
 @Component({
     selector: 'app-word-form',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule],
+    imports: [CommonModule, ReactiveFormsModule, RangeInputComponent],
     templateUrl: './word-form.component.html',
     styleUrls: ['./word-form.component.css']
 })
 export class WordFormComponent {
     createWordForm!: FormGroup;
     currentWord: Word | null = null;
+    isRemove: boolean = true;
 
     constructor(private wordsRepository: WordRepositoryService,
-                private activateRouted: ActivatedRoute) {
+                private activateRouted: ActivatedRoute,
+                private router: Router) {
         activateRouted.params.subscribe(params => {
             if (params["id"] != null) {
                 this.currentWord = this.wordsRepository.getWordByID(Number(params["id"]));
+            } else {
+                this.currentWord = null;
             }
             this.initForm();
         })
@@ -60,10 +65,21 @@ export class WordFormComponent {
 
         if (this.currentWord === null) {
             this.wordsRepository.addWord(newWord);
+            this.router.navigate(["words"]);
         } else {
             this.wordsRepository.updateWord(newWord);
         }
         this.createWordForm.reset()
     }
+
+    remove() {
+        let answer = confirm("Are you sure?");
+        if (answer) {
+            this.wordsRepository.remove(this.currentWord!);
+            this.router.navigate(["words"]);
+        }
+    }
+
+    myformControl: FormControl = new FormControl<any>(3)
 
 }

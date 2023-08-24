@@ -1,6 +1,3 @@
 <i [class]="setIcon()"></i>
-<!--<i class="bi bi-volume-down-fill d-none js-icon-medium"></i>-->
-<!--<i class="bi bi-volume-off-fill d-none js-icon-low"></i>-->
-<!--<i class="bi bi-volume-mute-fill d-none js-icon-none"></i>-->
 <input (change)="changeVolume()" [(ngModel)]="volume" type="range" min="0.1" max="1" step="0.01"
        class="ms-1 form-range js-control">

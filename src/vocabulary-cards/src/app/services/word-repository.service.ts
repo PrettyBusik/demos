@@ -75,6 +75,16 @@ export class WordRepositoryService {
 
     }
 
+    remove(word: Word) {
+        let allWords = this.getAllWords();
+        for (let i = 0; i < allWords.length; i++) {
+            if (allWords[i].id === word.id) {
+                allWords.splice(i, 1)
+            }
+        }
+        window.localStorage.setItem("words", JSON.stringify(allWords));
+    }
+
     private paginate(allWords: Word[], numberPage: number, size: number): Page {
         let wordsForShowing: Word[] = []
         let totalAmountPages: number = Math.ceil(allWords.length / size);
