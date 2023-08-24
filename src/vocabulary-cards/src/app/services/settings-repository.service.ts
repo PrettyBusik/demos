@@ -8,7 +8,7 @@ export class SettingsRepositoryService {
   get(): Settings {
     let settings = window.localStorage.getItem("settings");
     if (settings === null) {
-      return new Settings();
+      return new Settings(10, 5, true, true);
     }
     return JSON.parse(settings)
   }
