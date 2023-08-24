@@ -80,6 +80,5 @@ export class WordFormComponent {
         }
     }
 
-    myformControl: FormControl = new FormControl<any>(3)
 
 }

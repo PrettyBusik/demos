@@ -1,0 +1,52 @@
+<form class="col col-xl-8 settings-form">
+    <h1 class="line-bottom display-6">Settings</h1>
+
+    <h4 class="line-bottom">A list of words</h4>
+
+    <div class="row line-bottom">
+        <div class="col-md-5 col-lg-4"><label class="form-label">Page size</label></div>
+        <div class="col-md mb-1">
+            <!-- Here place the range-input component -->
+        </div>
+        <div class="col-md-12 col-lg-4 text-body-tertiary fst-italic">A number of words on the single page</div>
+    </div>
+
+    <div class="row line-bottom">
+        <div class="col-md-5 col-lg-4"><label class="form-label">Auto-pronunciation</label></div>
+        <div class="col-md mb-1">
+            <div class="form-switch">
+                <input type="hidden" name="training-autoPronunciation" value="0">
+                <input class="form-check-input" type="checkbox" role="switch" name="training-autoPronunciation"
+                       value="1">
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-4 text-body-tertiary  fst-italic">Whether words should be pronounced
+            automatically
+        </div>
+    </div>
+
+    <div class="row line-bottom">
+        <div class="col-md-5 col-lg-4"><label class="form-label">Number of new words</label></div>
+        <div class="col-md mb-1">
+            <!-- Here place the range-input component -->
+        </div>
+        <div class="col-md-12 col-lg-4 text-body-tertiary fst-italic">A number of new words you start to learn when you
+            press the "Learn new" link
+        </div>
+    </div>
+
+    <div class="row line-bottom">
+        <div class="col-md-5 col-lg-4"><label class="form-label">Use hotkeys</label></div>
+        <div class="col-md mb-1">
+            <div class="form-switch">
+                <input type="hidden" name="training-hotkeys" value="0">
+                <input class="form-check-input" type="checkbox" role="switch" name="training-hotkeys" value="1">
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-4 text-body-tertiary  fst-italic">Whether hotkeys should be available</div>
+    </div>
+
+    <div class="d-flex justify-content-end">
+        <button class="btn btn-primary js-submit-btn">Save</button>
+    </div>
+</form>

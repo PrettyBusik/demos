@@ -1,6 +1,6 @@
 <div class="d-flex align-items-center">
     <span class="col me-3 lead"><b>{{getController().value}}</b></span>
-    <a href="" (click)="dicreaseValue(); $event.preventDefault()"><i class="bi bi-caret-left"></i></a>
+    <a href="" (click)="decreaseValue(); $event.preventDefault()"><i class="bi bi-caret-left"></i></a>
     <input name="hello" type="range" class="form-range mx-2" [min]="min" [max]="max" [step]="step"
            [formControl]="getController()">
     <a href="" (click)="increaseValue(); $event.preventDefault()"><i class="bi bi-caret-right"></i></a>

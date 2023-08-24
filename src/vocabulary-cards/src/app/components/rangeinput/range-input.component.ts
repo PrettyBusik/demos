@@ -23,7 +23,7 @@ export class RangeInputComponent {
         this.controler.setValue(this.controler.value + 1);
     }
 
-    dicreaseValue() {
+    decreaseValue() {
         this.controler.setValue(this.controler.value - 1);
     }
 }

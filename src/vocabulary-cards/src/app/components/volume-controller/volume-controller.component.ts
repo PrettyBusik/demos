@@ -19,7 +19,6 @@ export class VolumeControllerComponent {
 
     changeVolume() {
         this.audioPlayer.setVolume(this.volume);
-        console.log(this.volume)
     }
 
     setIcon(): string {
