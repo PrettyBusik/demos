@@ -28,7 +28,6 @@ export class WordsForTrainingComponent {
   }
 
   learn() {
-
   }
 
 

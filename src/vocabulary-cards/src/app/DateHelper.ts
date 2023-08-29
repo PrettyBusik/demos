@@ -14,6 +14,8 @@ export class DateHelper {
     static getTimeStampForToday(): number {
         // @ts-ignore
         let today = new Date();
+        today.setHours(0,0,0);
+
         return today.getTime()/ 1000;
     }
 
