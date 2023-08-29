@@ -112,7 +112,7 @@ export class WordRepositoryService {
         for (let word of allWords) {
             if (word.status === OptionsOfStatus.InProgress &&
                 word.nextTrainingAt != null &&
-                DateHelper.compareDates(todayTimestamp, word.nextTrainingAt)) {
+                DateHelper.areDatesEqual(todayTimestamp, word.nextTrainingAt)) {
                 wordsForTodayTraining.push(word)
             }
         }

@@ -14,7 +14,7 @@ export class DateHelper {
     static getTimeStampForToday(): number {
         // @ts-ignore
         let today = new Date();
-        return today.getTime() * 1000;
+        return today.getTime()/ 1000;
     }
 
     static getNextDate(timestamp: number, numberOfDays: number): number {
@@ -25,7 +25,7 @@ export class DateHelper {
         return timestamp + amountSec
     }
 
-    static compareDates(timestamp1: number, timestamp2: number) {
+    static areDatesEqual(timestamp1: number, timestamp2: number) {
         //@ts-ignore
         let date1 = new Date(timestamp1 * 1000);
 
@@ -38,5 +38,39 @@ export class DateHelper {
             return true;
         }
         return false;
+    }
+
+    static isDateLessOrEqual(timestamp1:number, timestamp2:number):boolean{
+        //@ts-ignore
+        let date1= new Date(timestamp1*1000);
+        //@ts-ignore
+        let date2 = new Date(timestamp2 * 1000);
+
+        if (date1.getFullYear()<date2.getFullYear()){
+            return true;
+        }
+
+        if (date1.getFullYear()>date2.getFullYear()){
+            return false;
+        }
+
+
+        if (date1.getMonth()<date2.getMonth()){
+            return true;
+        }
+
+        if (date1.getMonth()>date2.getMonth()){
+            return false;
+        }
+
+        if (date1.getDay()<date2.getDay()){
+            return true;
+        }
+
+        if (date1.getDay()>date2.getDay()){
+            return false;
+        }
+
+        return true;
     }
 }
