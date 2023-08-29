@@ -6,6 +6,11 @@ export class Word {
     partOfSpeech: string
     translation: string;
 
+    status: OptionsOfStatus = OptionsOfStatus.Waiting;
+    level: number | null = null;
+    nextTrainingAt: number | null = null;
+    lastTrainingAt: number | null = null;
+
 
     constructor(id: number, word: string, transcription: string, pronunciation: string, partOfSpeech: string, translation: string) {
         this.id = id;
@@ -40,4 +45,11 @@ export class WordsFilter {
         this.partOfSpeech = partOfSpeech;
     }
 
+
+}
+
+export enum OptionsOfStatus {
+    Waiting = "waiting",
+    InProgress = "inProgress",
+    Completed = "completed",
 }

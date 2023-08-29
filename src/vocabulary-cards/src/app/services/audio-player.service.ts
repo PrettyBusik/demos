@@ -11,8 +11,6 @@ export class AudioPlayerService {
         this.audioPlayer.src = link;
         this.getVolume();
         this.audioPlayer.play();
-
-        console.log(this.audioPlayer.volume)
     }
 
     setVolume(value: number) {

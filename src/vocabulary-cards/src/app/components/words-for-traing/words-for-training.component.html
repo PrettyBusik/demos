@@ -1,0 +1,16 @@
+<h1 class="line-bottom display-6">New words for learning</h1>
+
+<div *ngIf="wordsForTraining.length===0" class="text-center">
+    <div class="display-6 text-center line-bottom">
+        There are no words for learning
+    </div>
+</div>
+
+<!-- The table is here -->
+<app-words-table [words]="wordsForTraining" [showEditLink]="false"></app-words-table>
+
+<div class="d-flex justify-content-end">
+    <button (click)="startTraining()" class="btn btn-primary">Start training</button>
+</div>
+
+<button (click)="learn()"></button>

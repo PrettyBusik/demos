@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
-import {Page, Word, WordsFilter} from "../word";
+import {OptionsOfStatus, Page, Word, WordsFilter} from "../word";
+import {DateHelper} from "../DateHelper";
+
 
 @Injectable({
     providedIn: 'root'
@@ -83,6 +85,38 @@ export class WordRepositoryService {
             }
         }
         window.localStorage.setItem("words", JSON.stringify(allWords));
+    }
+
+    getNextWaitingWords(amount: number): Word[] {
+        let allWords = this.getAllWords();
+        let wordsForTraining: Word[] = [];
+
+        let index = amount;
+
+        for (let word of allWords) {
+            if (word.status == OptionsOfStatus.Waiting && index > 0) {
+                wordsForTraining.push(word);
+                index--;
+                if (index === 0) {
+                    return wordsForTraining;
+                }
+            }
+        }
+        return wordsForTraining;
+    }
+
+    getListWordsForTodayTraining(todayTimestamp: number): Word[] {
+        let allWords = this.getAllWords();
+        let wordsForTodayTraining: Word[] = [];
+
+        for (let word of allWords) {
+            if (word.status === OptionsOfStatus.InProgress &&
+                word.nextTrainingAt != null &&
+                DateHelper.compareDates(todayTimestamp, word.nextTrainingAt)) {
+                wordsForTodayTraining.push(word)
+            }
+        }
+        return wordsForTodayTraining;
     }
 
     private paginate(allWords: Word[], numberPage: number, size: number): Page {

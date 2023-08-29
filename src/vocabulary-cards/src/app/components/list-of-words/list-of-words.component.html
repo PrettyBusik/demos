@@ -27,50 +27,7 @@
     </div>
 </div>
 
-
-<div class="table-responsive line-bottom">
-    <table class="table js-words-list words-list mb-0">
-        <thead>
-        <tr>
-            <th>Word</th>
-            <th colspan="2">Transcription</th>
-            <th>Translation</th>
-            <th></th>
-            <th colspan="2">Part of speech</th>
-        </tr>
-        </thead>
-        <tbody *ngFor="let word of listWords.words">
-        <tr class="js-word word ">
-            <td class="">{{word.word}}</td>
-            <td class="text-nowrap pe-0 cell-narrow">
-                <a
-                        data-bs-toggle="tooltip"
-                        data-bs-title="Pronounce"
-                        class="js-pronounce-link me-1">
-                    <i (click)="audio(word.pronunciation); $event.preventDefault()" class="bi bi-mic"></i>
-                </a>
-            </td>
-            <td class="text-nowrap ps-0">
-                <span class="transcription">{{word.transcription}}</span>
-            </td>
-            <td class="translation">{{word.translation}}<br/>
-            </td>
-            <td>
-                <i class="text-warning bi bi-1-circle" data-bs-toggle="tooltip"
-                   data-bs-title="Next training: 06.02.2023"></i>
-            </td>
-            <td class="text-body-tertiary">
-                {{word.partOfSpeech}}
-            </td>
-            <td class="text-nowrap cell-narrow">
-                <a [routerLink]="'/words/'+word.id" data-bs-toggle="tooltip" data-bs-title="Edit"><i
-                        class="bi bi-pencil"></i></a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-
+<app-words-table [words]="listWords.words" [showEditLink]="true"></app-words-table>
 <app-paginater
         [currentPage]="page"
         [totalPageNumber]="listWords.totalPages">

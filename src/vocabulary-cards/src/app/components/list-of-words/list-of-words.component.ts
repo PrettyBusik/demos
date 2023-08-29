@@ -6,19 +6,20 @@ import {WordRepositoryService} from "../../services/word-repository.service";
 import {Page, Word, WordsFilter} from "../../word";
 import {PaginatorComponent} from "../paginater/paginator.component";
 import {FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
-import {AudioPlayerService} from "../../services/audio-player.service";
+import {SettingsRepositoryService} from "../../services/settings-repository.service";
+import {WordsTableComponent} from "../words-table/words-table.component";
 
 @Component({
     selector: 'app-list-of-words',
     standalone: true,
-    imports: [CommonModule, RouterLink, PaginatorComponent, ReactiveFormsModule],
+    imports: [CommonModule, RouterLink, PaginatorComponent, ReactiveFormsModule, WordsTableComponent],
     templateUrl: './list-of-words.component.html',
     styleUrls: ['./list-of-words.component.css']
 })
 export class ListOfWordsComponent {
     queryParamNumberOfPage: Subscription;
     page: number = 1;
-    pageSize: number = 10;
+    pageSize!: number;
 
     listWords!: Page;
 
@@ -28,7 +29,7 @@ export class ListOfWordsComponent {
     constructor(private router: ActivatedRoute,
                 private rout: Router,
                 private wordRepository: WordRepositoryService,
-                private audioPlayer: AudioPlayerService) {
+                private settingsRepository: SettingsRepositoryService) {
         this.queryParamNumberOfPage = router.queryParams.subscribe(
             queryParam => {
                 if (queryParam["page"] === undefined) {
@@ -36,6 +37,8 @@ export class ListOfWordsComponent {
                 } else {
                     this.page = Number(queryParam["page"]);
                 }
+
+                this.pageSize = settingsRepository.get().wordsList;
 
                 this.listWords = this.wordRepository.getPage(
                     this.page,
@@ -46,7 +49,6 @@ export class ListOfWordsComponent {
 
     search() {
         if (this.searchForm.value != "") {
-            console.log(this.searchForm.value)
             this.wordForSearching = this.searchForm.value;
 
             this.searchForm.reset();
@@ -56,10 +58,6 @@ export class ListOfWordsComponent {
                 {queryParams: {search: this.wordForSearching}}
             )
         }
-    }
-
-    audio(link: string) {
-        this.audioPlayer.play(link)
     }
 
 }

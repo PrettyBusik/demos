@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RangeInputComponent} from "../rangeinput/range-input.component";
-import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {SettingsRepositoryService} from "../../services/settings-repository.service";
 import {Settings} from "../../Settings";
 
@@ -21,10 +21,11 @@ formGroup:FormGroup= new FormGroup<any>({
 })
 
   constructor(private settingsRepository:SettingsRepositoryService) {
-  this.formGroup.get("pageSize")!.setValue(settingsRepository.get().wordsList);
-  this.formGroup.get("autoPronunciation")!.setValue(settingsRepository.get().trainingAutoPronunciation);
-  this.formGroup.get("numberOfNewWords")!.setValue(settingsRepository.get().numberOfNewWords);
-  this.formGroup.get("useHotKeys")!.setValue(settingsRepository.get().trainingUseHotKeys);
+      let settingsFromStorage = settingsRepository.get();
+      this.formGroup.get("pageSize")!.setValue(settingsFromStorage.wordsList);
+      this.formGroup.get("autoPronunciation")!.setValue(settingsFromStorage.trainingAutoPronunciation);
+      this.formGroup.get("numberOfNewWords")!.setValue(settingsFromStorage.numberOfNewWords);
+      this.formGroup.get("useHotKeys")!.setValue(settingsFromStorage.trainingUseHotKeys);
   }
 
 
