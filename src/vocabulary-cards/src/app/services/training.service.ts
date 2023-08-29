@@ -9,6 +9,16 @@ import {DateHelper} from "../DateHelper";
 })
 export class TrainingService {
 
+  levelAmountDays= new Map([
+      [1,1],
+      [2,2],
+      [3,4],
+      [4,9],
+      [5,16],
+      [6,35],
+      [7,64]
+  ])
+
   constructor(private wordsRepository: WordRepositoryService,
               private settingsRepository: SettingsRepositoryService) {
   }
@@ -26,6 +36,27 @@ export class TrainingService {
       word.nextTrainingAt = DateHelper.getTimeStampForToday();
       this.wordsRepository.updateWord(word);
     }
+  }
+
+  failWord(word:Word){
+    word.level=1;
+    word.nextTrainingAt= DateHelper.getTimeStampForToday();
+    this.wordsRepository.updateWord(word)
+  }
+
+  successfulWord(word:Word){
+    if (word.level===8){
+      word.nextTrainingAt=null;
+      word.level=null;
+      word.status=OptionsOfStatus.Completed;
+
+      this.wordsRepository.updateWord(word);
+      return
+    }
+
+    word.nextTrainingAt=DateHelper.getNextDate(DateHelper.getTimeStampForToday(),this.levelAmountDays.get(word.level!)!);
+    word.level!++;
+    this.wordsRepository.updateWord(word)
   }
 
 }
