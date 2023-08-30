@@ -28,51 +28,16 @@ export class DateHelper {
     }
 
     static areDatesEqual(timestamp1: number, timestamp2: number) {
-        //@ts-ignore
-        let date1 = new Date(timestamp1 * 1000);
-
-        //@ts-ignore
-        let date2 = new Date(timestamp2 * 1000);
-
-        if (date1.getDay() === date2.getDay() &&
-            date1.getMonth() === date2.getMonth() &&
-            date1.getFullYear() === date2.getFullYear()) {
-            return true;
+        if (timestamp1 === timestamp2) {
+            return true
         }
         return false;
     }
 
-    static isDateLessOrEqual(timestamp1:number, timestamp2:number):boolean{
-        //@ts-ignore
-        let date1= new Date(timestamp1*1000);
-        //@ts-ignore
-        let date2 = new Date(timestamp2 * 1000);
-
-        if (date1.getFullYear()<date2.getFullYear()){
-            return true;
+    static isDateLessOrEqual(timestamp1:number, timestamp2:number):boolean {
+        if (timestamp1 < timestamp2) {
+            return true
         }
-
-        if (date1.getFullYear()>date2.getFullYear()){
-            return false;
-        }
-
-
-        if (date1.getMonth()<date2.getMonth()){
-            return true;
-        }
-
-        if (date1.getMonth()>date2.getMonth()){
-            return false;
-        }
-
-        if (date1.getDay()<date2.getDay()){
-            return true;
-        }
-
-        if (date1.getDay()>date2.getDay()){
-            return false;
-        }
-
-        return true;
+        return false;
     }
 }

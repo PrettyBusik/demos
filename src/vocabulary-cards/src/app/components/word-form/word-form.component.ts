@@ -5,6 +5,7 @@ import {WordRepositoryService} from "../../services/word-repository.service";
 import {Word} from "../../word";
 import {ActivatedRoute, Router} from "@angular/router";
 import {RangeInputComponent} from "../rangeinput/range-input.component";
+import {DateHelper} from "../../DateHelper";
 
 @Component({
     selector: 'app-word-form',
@@ -60,7 +61,8 @@ export class WordFormComponent {
             this.createWordForm.get('transcriptionForm')!.value,
             this.createWordForm.get('pronunciationForm')!.value,
             this.createWordForm.get('partOfSpeechForm')!.value,
-            this.createWordForm.get('translationForm')!.value
+            this.createWordForm.get('translationForm')!.value,
+            DateHelper.getTimeStampForToday()
         )
 
         if (this.currentWord === null) {

@@ -40,7 +40,8 @@ export class TrainingService {
 
   failWord(word:Word){
     word.level=1;
-    word.nextTrainingAt= DateHelper.getTimeStampForToday();
+    word.nextTrainingAt = DateHelper.getTimeStampForToday();
+    word.lastTrainingAt = DateHelper.getTimeStampForToday();
     this.wordsRepository.updateWord(word)
   }
 
@@ -48,13 +49,15 @@ export class TrainingService {
     if (word.level===8){
       word.nextTrainingAt=null;
       word.level=null;
-      word.status=OptionsOfStatus.Completed;
+      word.status = OptionsOfStatus.Completed;
+      word.lastTrainingAt = DateHelper.getTimeStampForToday();
 
       this.wordsRepository.updateWord(word);
       return
     }
 
-    word.nextTrainingAt=DateHelper.getNextDate(DateHelper.getTimeStampForToday(),this.levelAmountDays.get(word.level!)!);
+    word.nextTrainingAt = DateHelper.getNextDate(DateHelper.getTimeStampForToday(), this.levelAmountDays.get(word.level!)!);
+    word.lastTrainingAt = DateHelper.getTimeStampForToday();
     word.level!++;
     this.wordsRepository.updateWord(word)
   }

@@ -10,15 +10,17 @@ export class Word {
     level: number | null = null;
     nextTrainingAt: number | null = null;
     lastTrainingAt: number | null = null;
+    createdAt!: number
 
 
-    constructor(id: number, word: string, transcription: string, pronunciation: string, partOfSpeech: string, translation: string) {
+    constructor(id: number, word: string, transcription: string, pronunciation: string, partOfSpeech: string, translation: string, creationDate: number) {
         this.id = id;
         this.word = word;
         this.transcription = transcription;
         this.pronunciation = pronunciation;
         this.partOfSpeech = partOfSpeech;
         this.translation = translation;
+        this.createdAt = creationDate;
     }
 }
 
