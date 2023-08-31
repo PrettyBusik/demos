@@ -5,6 +5,7 @@ import {Word} from "../../word";
 import {WordsTableComponent} from "../words-table/words-table.component";
 import {WordRepositoryService} from "../../services/word-repository.service";
 import {DateHelper} from "../../DateHelper";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-words-for-traing',
@@ -17,7 +18,8 @@ export class WordsForTrainingComponent {
   wordsForTraining: Word[];
 
   constructor(private trainingService: TrainingService,
-              private wordsRepository: WordRepositoryService) {
+              private wordsRepository: WordRepositoryService,
+              private router: Router) {
     this.wordsForTraining = trainingService.getNextWordsForTraining();
     DateHelper.getNextDate(1693220929, 1)
     this.wordsRepository.getListWordsForTodayTraining(1693321626902000)
@@ -25,9 +27,7 @@ export class WordsForTrainingComponent {
 
   startTraining() {
     this.trainingService.startLearning(this.wordsForTraining);
-  }
-
-  learn() {
+    this.router.navigate(["training"]);
   }
 
 

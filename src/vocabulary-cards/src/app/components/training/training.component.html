@@ -1,0 +1,42 @@
+<div class="js-body">
+    <h1 class="line-bottom display-6">Training</h1>
+
+    <div class="card">
+        <div class="card-body pb-0">
+            <h4 *ngIf="currentDirection===TrainingDirection.LearningToNative || step===2"
+                class="card-title">{{currentWord.word}}</h4>
+
+            <h4 class="card-title text-body-tertiary">? ? ?</h4>
+            <p class="line-bottom text-nowrap">
+                <a *ngIf="currentDirection===TrainingDirection.LearningToNative ||step===2"
+                   (click)="audio(currentWord.pronunciation);$event.preventDefault()" href="" class="me-1"><i
+                        class="bi bi-mic"></i></a>
+                <span *ngIf="currentDirection===TrainingDirection.LearningToNative || step===2"
+                      class="transcription me-3">{{"/" + currentWord.transcription + "/"}}</span>
+                <span class="badge text-bg-light border">{{currentWord.partOfSpeech}}</span>
+            </p>
+            <p *ngIf="currentDirection===TrainingDirection.NativeToLearning ||step===2"
+               class="line-bottom">{{currentWord.translation}}</p>
+            <p class="text-muted fst-italic line-bottom"></p>
+            <div class="d-flex flex-column flex-sm-row justify-content-end">
+                <button *ngIf="step===1" class="btn btn-primary mb-3 text-nowrap">Show</button>
+                <button *ngIf="step===2" class="btn btn-success mb-3 text-nowrap me-sm-3">Success</button>
+                <button *ngIf="step===2" class="btn btn-danger mb-3 text-nowrap">Fail</button>
+            </div>
+        </div>
+        <div class="card-footer text-body-tertiary text-end">
+            <span class="text-nowrap">
+                <span>Studied <i class="bi bi-arrow-right"></i> Native</span>
+                <span>Native <i class="bi bi-arrow-right"></i> Studied</span>
+            </span>
+            <span class="ms-4 text-nowrap">Completed: 13 of 20</span>
+        </div>
+    </div>
+
+    <div class="text-body-tertiary line-top">
+        <span class="me-2 text-nowrap"><code>Enter</code> – Show;</span>
+        <span class="me-2 text-nowrap"><code>Up</code> – Pronounce;</span>
+        <span class="me-2 text-nowrap"><code>Ctrl+Left</code> – Success;</span>
+        <span class="text-nowrap"><code>Ctrl+Right</code> – Fail</span>
+    </div>
+</div>

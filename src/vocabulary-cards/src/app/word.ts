@@ -55,3 +55,8 @@ export enum OptionsOfStatus {
     InProgress = "inProgress",
     Completed = "completed",
 }
+
+export enum TrainingDirection {
+    NativeToLearning = "Russ-Eng",
+    LearningToNative = "Eng-Russ"
+}
