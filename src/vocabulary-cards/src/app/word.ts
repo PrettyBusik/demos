@@ -39,15 +39,22 @@ export class Page {
 export class WordsFilter {
     search: string | null;
     partOfSpeech: string | null;
+    level: number | null;
+    nextTrainingAt: number | null;
+    status: OptionsOfStatus | null;
 
-
-    constructor(search: string | null, partOfSpeech: string | null,
+    constructor(search: string | null,
+                partOfSpeech: string | null,
+                level: number | null,
+                nextTrainingAt: number | null,
+                status: OptionsOfStatus | null
     ) {
         this.search = search;
         this.partOfSpeech = partOfSpeech;
+        this.level = level;
+        this.nextTrainingAt = nextTrainingAt;
+        this.status = status;
     }
-
-
 }
 
 export enum OptionsOfStatus {

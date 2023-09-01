@@ -140,13 +140,26 @@ export class WordRepositoryService {
 
     private filter(allWords: Word[], filters: WordsFilter): Word[] {
         return allWords.filter((word: Word) => {
-            if (filters.partOfSpeech != null && word.partOfSpeech != filters.partOfSpeech) {
+            if (filters.partOfSpeech != null && word.partOfSpeech.toUpperCase() != filters.partOfSpeech.toUpperCase()) {
                 return false
             }
 
             if (filters.search != null && !word.word.includes(filters.search)) {
                 return false
             }
+
+            if ((filters.level != null && word.level != filters.level)) {
+                return false;
+            }
+
+            if (filters.nextTrainingAt != null && word.nextTrainingAt != filters.nextTrainingAt) {
+                return false;
+            }
+
+            if (filters.status != null && word.status != filters.status) {
+                return false;
+            }
+
             return true;
         })
     }

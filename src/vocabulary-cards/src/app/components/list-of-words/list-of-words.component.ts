@@ -43,7 +43,12 @@ export class ListOfWordsComponent {
                 this.listWords = this.wordRepository.getPage(
                     this.page,
                     this.pageSize,
-                    new WordsFilter(queryParam['search'] === undefined ? null : queryParam['search'], null))  // edit
+                    new WordsFilter(queryParam['search'] === undefined ? null : queryParam['search'],
+                        queryParam['partOfSpeech'],
+                        queryParam['level'],
+                        queryParam['nextTrainingAt'],
+                        queryParam['status']
+                    ));
             })
     }
 
