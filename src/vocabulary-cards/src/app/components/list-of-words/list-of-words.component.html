@@ -6,16 +6,16 @@
     <nav class="line-bottom">
         <ul class="pagination pagination-sm my-0">
             <li class="page-item flex-fill text-center text-nowrap active">
-                <a class="page-link" href="/words">All</a>
+                <a class="page-link" [routerLink]="'/words'">All</a>
             </li>
             <li class="page-item flex-fill text-center text-nowrap  ">
-                <a class="page-link" href="/words?status=1">Waiting</a>
+                <a class="page-link" [routerLink]="'/words'" [queryParams]="{status:'waiting'}">Waiting</a>
             </li>
             <li class="page-item flex-fill text-center text-nowrap  ">
-                <a class="page-link" href="/words?status=2">In progress</a>
+                <a class="page-link" [routerLink]="'/words'" [queryParams]="{status:'inProgress'}">In progress</a>
             </li>
             <li class="page-item flex-fill text-center text-nowrap  ">
-                <a class="page-link" href="/words?status=3">Completed</a>
+                <a class="page-link" [routerLink]="'/words'" [queryParams]="{status:'completed'}">Completed</a>
             </li>
         </ul>
     </nav>
