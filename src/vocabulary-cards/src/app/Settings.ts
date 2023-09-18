@@ -4,7 +4,11 @@ export class Settings {
     trainingAutoPronunciation: boolean = true;
     trainingUseHotKeys: boolean = true;
 
-    constructor(wordsList: number, numberOfNewWords: number, trainingAutoPronunciation: boolean, trainingUseHotKeys: boolean) {
+    constructor(wordsList: number,
+                numberOfNewWords: number,
+                trainingAutoPronunciation: boolean,
+                trainingUseHotKeys: boolean,
+    ) {
         this.wordsList = wordsList;
         this.numberOfNewWords = numberOfNewWords;
         this.trainingAutoPronunciation = trainingAutoPronunciation;

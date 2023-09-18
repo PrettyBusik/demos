@@ -1,12 +1,17 @@
 import {Injectable} from '@angular/core';
 import {Settings} from "../Settings";
+import {StorageService} from "./storage.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SettingsRepositoryService {
+
+  constructor(private storage: StorageService) {
+  }
+
   get(): Settings {
-    let settings = window.localStorage.getItem("settings");
+    let settings = this.storage.get("settings");
     if (settings === null) {
       return new Settings(10, 5, true, true);
     }
@@ -14,6 +19,6 @@ export class SettingsRepositoryService {
   }
 
   set(setting: Settings) {
-    window.localStorage.setItem("settings", JSON.stringify(setting))
+    this.storage.set("settings", JSON.stringify(setting))
   }
 }

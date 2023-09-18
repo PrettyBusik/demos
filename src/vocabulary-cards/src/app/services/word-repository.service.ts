@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {OptionsOfStatus, Page, Word, WordsFilter} from "../word";
 import {DateHelper} from "../DateHelper";
+import {StorageService} from "./storage.service";
 
 
 @Injectable({
@@ -8,8 +9,11 @@ import {DateHelper} from "../DateHelper";
 })
 export class WordRepositoryService {
 
+    constructor(private storage: StorageService) {
+    }
+
     private getAllWords(): Word[] {
-        let allWords = window.localStorage.getItem("words");
+        let allWords = this.storage.get("words");
         if (allWords === null) {
             return []
         }
@@ -33,7 +37,7 @@ export class WordRepositoryService {
 
         allWords.push(word);
 
-        window.localStorage.setItem("words", JSON.stringify(allWords))
+        this.storage.set("words", JSON.stringify(allWords))
 
     }
 
@@ -44,19 +48,19 @@ export class WordRepositoryService {
                 allWords.splice(i, 1, word)
             }
         }
-        window.localStorage.setItem("words", JSON.stringify(allWords))
+        this.storage.set("words", JSON.stringify(allWords))
     }
 
 
     getNextId(): number {
-        let lastId = window.localStorage.getItem("lastId");
+        let lastId = this.storage.get("lastId");
         if (lastId === null) {
-            window.localStorage.setItem("lastId", "1")
+            this.storage.set("lastId", "1")
             return 1
         }
         let numberID = Number(lastId);
         numberID++;
-        window.localStorage.setItem("lastId", numberID.toString());
+        this.storage.set("lastId", numberID.toString());
         return numberID;
     }
 
@@ -84,7 +88,7 @@ export class WordRepositoryService {
                 allWords.splice(i, 1)
             }
         }
-        window.localStorage.setItem("words", JSON.stringify(allWords));
+        this.storage.set("words", JSON.stringify(allWords));
     }
 
     getNextWaitingWords(amount: number): Word[] {

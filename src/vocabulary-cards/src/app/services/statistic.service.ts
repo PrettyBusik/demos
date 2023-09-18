@@ -27,20 +27,17 @@ export class StatisticService {
     amountWordsWithLevel.set(1, this.wordRepository.wordsByLevel(1))
     amountWordsWithLevel.set(2, this.wordRepository.wordsByLevel(2))
     amountWordsWithLevel.set(3, this.wordRepository.wordsByLevel(3))
-    amountWordsWithLevel.set(4, this.wordRepository.wordsByLevel(4))
-    amountWordsWithLevel.set(5, this.wordRepository.wordsByLevel(5))
-    amountWordsWithLevel.set(6, this.wordRepository.wordsByLevel(6))
-    amountWordsWithLevel.set(7, this.wordRepository.wordsByLevel(7))
-    amountWordsWithLevel.set(8, this.wordRepository.wordsByLevel(8))
+      amountWordsWithLevel.set(4, this.wordRepository.wordsByLevel(4))
+      amountWordsWithLevel.set(5, this.wordRepository.wordsByLevel(5))
+      amountWordsWithLevel.set(6, this.wordRepository.wordsByLevel(6))
+      amountWordsWithLevel.set(7, this.wordRepository.wordsByLevel(7))
+      amountWordsWithLevel.set(8, this.wordRepository.wordsByLevel(8))
 
-    console.log(amountWordsWithLevel)
-    return amountWordsWithLevel
+      console.log(amountWordsWithLevel)
+      return amountWordsWithLevel
   }
 
-  countWordsByNextTrainDate(): Map<number, number>{
-    let amountWordsWithNextTrainDate= new Map();
-
-
-    
-  }
+    // countWordsByNextTrainDate(): Map<number, number>{
+    //   let amountWordsWithNextTrainDate= new Map();
+    // }
 }
