@@ -8,6 +8,7 @@ import {PaginatorComponent} from "../paginater/paginator.component";
 import {FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
 import {SettingsRepositoryService} from "../../services/settings-repository.service";
 import {WordsTableComponent} from "../words-table/words-table.component";
+import {StatisticService} from "../../services/statistic.service";
 
 @Component({
     selector: 'app-list-of-words',
@@ -29,7 +30,8 @@ export class ListOfWordsComponent {
     constructor(private router: ActivatedRoute,
                 private rout: Router,
                 private wordRepository: WordRepositoryService,
-                private settingsRepository: SettingsRepositoryService) {
+                private settingsRepository: SettingsRepositoryService,
+                private statistic:StatisticService) {
         this.queryParamNumberOfPage = router.queryParams.subscribe(
             queryParam => {
                 if (queryParam["page"] === undefined) {
@@ -50,6 +52,9 @@ export class ListOfWordsComponent {
                         queryParam['status']
                     ));
             })
+
+        this.statistic.countWordsByStatus();
+        this.statistic.countWordsByLevel()
     }
 
     search() {

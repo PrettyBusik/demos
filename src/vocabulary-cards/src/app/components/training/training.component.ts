@@ -13,28 +13,25 @@ import {AudioPlayerService} from "../../services/audio-player.service";
   styleUrls: ['./training.component.css']
 })
 export class TrainingComponent {
-  currentWord: Word;
-  currentDirection: TrainingDirection;
-  step: number;
+  currentWord!: Word;
+  currentDirection: TrainingDirection=TrainingDirection.NativeToLearning;
+  step: number=1;
 
   wordsForTodayTraining: Word[] = []
 
   constructor(private wordsRepository: WordRepositoryService,
               private audioPlayer: AudioPlayerService) {
     this.wordsForTodayTraining = wordsRepository.getListWordsForTodayTraining(DateHelper.getTimeStampForToday());
-    console.log(this.wordsForTodayTraining)
-    this.currentWord = this.wordsForTodayTraining[0];
-    this.currentDirection = TrainingDirection.NativeToLearning;
-    this.step = 2
   }
 
 
   private shuffle(words: Word[]) {
-    for (let i = words.length - 1; i > 0; i--) {
+    let shuffledWords:Word[]= [...words];
+    for (let i = shuffledWords.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));
-      [words[i], words[j]] = [words[j], words[i]];
+      [shuffledWords[i], shuffledWords[j]] = [shuffledWords[j], shuffledWords[i]];
     }
-    return words
+    return shuffledWords
   }
 
   audio(link: string) {

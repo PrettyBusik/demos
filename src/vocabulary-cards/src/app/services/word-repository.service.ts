@@ -119,6 +119,30 @@ export class WordRepositoryService {
         return wordsForTodayTraining;
     }
 
+    WordsByStatus(status:OptionsOfStatus){
+        let allWords:Word[]=this.getAllWords();
+        let count:number=0;
+
+        for (let word of allWords){
+            if (word.status===status){
+                count++;
+            }
+        }
+        return count;
+    }
+
+    wordsByLevel(level:number){
+        let allWords:Word[]=this.getAllWords();
+        let count:number=0;
+
+        for (let word of allWords){
+            if (word.level===level){
+                count++;
+            }
+        }
+        return count;
+    }
+
     private paginate(allWords: Word[], numberPage: number, size: number): Page {
         let wordsForShowing: Word[] = []
         let totalAmountPages: number = Math.ceil(allWords.length / size);
