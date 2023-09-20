@@ -13,12 +13,11 @@ export class WordRepositoryService {
     }
 
     private getAllWords(): Word[] {
-        let allWords = this.storage.get("words");
-        if (allWords === null) {
+        let allWordsArray = this.storage.get<Word[]>("words");
+        if (allWordsArray === null) {
             return []
         }
 
-        let allWordsArray: Word[] = JSON.parse(allWords);
         allWordsArray = allWordsArray.sort((a: Word, b: Word): number => {
             if (a.word.toLowerCase() < b.word.toLowerCase()) {
                 return -1;
@@ -37,7 +36,7 @@ export class WordRepositoryService {
 
         allWords.push(word);
 
-        this.storage.set("words", JSON.stringify(allWords))
+        this.storage.set<Word[]>("words", allWords);
 
     }
 
@@ -48,19 +47,19 @@ export class WordRepositoryService {
                 allWords.splice(i, 1, word)
             }
         }
-        this.storage.set("words", JSON.stringify(allWords))
+        this.storage.set<Word[]>("words", allWords);
     }
 
 
     getNextId(): number {
-        let lastId = this.storage.get("lastId");
+        let lastId = this.storage.get<number>("lastId");
         if (lastId === null) {
-            this.storage.set("lastId", "1")
+            this.storage.set<number>("lastId", 1);
             return 1
         }
         let numberID = Number(lastId);
         numberID++;
-        this.storage.set("lastId", numberID.toString());
+        this.storage.set<number>("lastId", numberID);
         return numberID;
     }
 
@@ -88,7 +87,7 @@ export class WordRepositoryService {
                 allWords.splice(i, 1)
             }
         }
-        this.storage.set("words", JSON.stringify(allWords));
+        this.storage.set<Word[]>("words", allWords);
     }
 
     getNextWaitingWords(amount: number): Word[] {

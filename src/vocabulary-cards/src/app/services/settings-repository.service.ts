@@ -11,14 +11,14 @@ export class SettingsRepositoryService {
   }
 
   get(): Settings {
-    let settings = this.storage.get("settings");
+    let settings = this.storage.get<Settings>("settings");
     if (settings === null) {
       return new Settings(10, 5, true, true);
     }
-    return JSON.parse(settings)
+    return settings
   }
 
   set(setting: Settings) {
-    this.storage.set("settings", JSON.stringify(setting))
+    this.storage.set<Settings>("settings", setting);
   }
 }

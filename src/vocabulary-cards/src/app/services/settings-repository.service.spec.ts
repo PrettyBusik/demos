@@ -5,35 +5,32 @@ import {Settings} from "../Settings";
 describe('SettingsRepositoryService', () => {
     let service: SettingsRepositoryService;
 
-    it('should set settings', () => {
-        let storage = jasmine.createSpyObj<StorageService>(["set"]);
-        let settingsRepository = new SettingsRepositoryService(storage);
-
-        let setting = new Settings(10, 5, true, true)
-
-        settingsRepository.set(setting);
-
-        expect(storage.set).toHaveBeenCalledWith("settings", JSON.stringify(setting));
-    });
-
-    it('should get certain settings if storage doesn\'t have any settings', function () {
+    it('should get specific settings if there isn\'t another setting', () => {
         let storage = jasmine.createSpyObj<StorageService>(["get"]);
-        let settingsRepository = new SettingsRepositoryService(storage);
-
         storage.get.and.returnValue(null);
 
-        let setting = new Settings(10, 5, true, true)
-        expect(settingsRepository.get()).toEqual(setting);
-    });
-
-    it('should get settings', function () {
-        let storage = jasmine.createSpyObj<StorageService>(["get"]);
         let settingsRepository = new SettingsRepositoryService(storage);
 
-        let setting = new Settings(10, 10, false, false)
-        storage.get.and.returnValue(JSON.stringify(setting));
+        let result = settingsRepository.get();
+        expect(result).toEqual(new Settings(10, 5, true, true));
+    });
 
-        let result: Settings = settingsRepository.get();
-        expect(Object.assign({}, result)).toEqual(Object.assign({}, setting))
+    it('should get the settings from storage', function () {
+        let storage = jasmine.createSpyObj<StorageService>(["get"]);
+        let setting = new Settings(5, 5, false, false);
+        storage.get.and.returnValue(setting);
+
+        let settingsRepository = new SettingsRepositoryService(storage);
+        let result = settingsRepository.get();
+        expect(result).toEqual(setting)
+    });
+
+    it('should set a setting to storage', function () {
+        let storage = jasmine.createSpyObj<StorageService>(["set"]);
+        let setting = new Settings(20, 20, true, true);
+        let settingsRepository = new SettingsRepositoryService(storage);
+
+        settingsRepository.set(setting);
+        expect(storage.set).toHaveBeenCalledWith("settings", setting);
     });
 });

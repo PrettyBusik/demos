@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {Word} from "../word";
 
 @Injectable({
     providedIn: 'root'
@@ -6,12 +7,16 @@ import {Injectable} from '@angular/core';
 export class StorageService {
     localStorage = window.localStorage;
 
-    get(nameProperty: string): string | null {
-        return this.localStorage.getItem(nameProperty);
+    get<T>(nameProperty: string): T| null {
+        let result = this.localStorage.getItem(nameProperty);
+        if (result===null){
+            return null;
+        }
+         return JSON.parse(result) as T
     }
 
 
-    set(nameProperty: string, value: string) {
-        this.localStorage.setItem(nameProperty, value);
+    set<T>(nameProperty: string, value: T) {
+        this.localStorage.setItem(nameProperty,JSON.stringify(value));
     }
 }
