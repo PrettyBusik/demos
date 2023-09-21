@@ -43,11 +43,11 @@ export class WordsFilter {
     nextTrainingAt: number | null;
     status: OptionsOfStatus | null;
 
-    constructor(search: string | null,
-                partOfSpeech: string | null,
-                level: number | null,
-                nextTrainingAt: number | null,
-                status: OptionsOfStatus | null
+    constructor(search: string | null = null,
+                partOfSpeech: string | null = null,
+                level: number | null = null,
+                nextTrainingAt: number | null = null,
+                status: OptionsOfStatus | null = null
     ) {
         this.search = search;
         this.partOfSpeech = partOfSpeech;

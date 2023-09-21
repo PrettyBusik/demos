@@ -47,6 +47,7 @@ export class WordRepositoryService {
                 allWords.splice(i, 1, word)
             }
         }
+        console.log(allWords)
         this.storage.set<Word[]>("words", allWords);
     }
 
@@ -122,12 +123,12 @@ export class WordRepositoryService {
         return wordsForTodayTraining;
     }
 
-    WordsByStatus(status:OptionsOfStatus){
-        let allWords:Word[]=this.getAllWords();
-        let count:number=0;
+    wordsByStatus(status: OptionsOfStatus) {
+        let allWords: Word[] = this.getAllWords();
+        let count: number = 0;
 
-        for (let word of allWords){
-            if (word.status===status){
+        for (let word of allWords) {
+            if (word.status === status) {
                 count++;
             }
         }

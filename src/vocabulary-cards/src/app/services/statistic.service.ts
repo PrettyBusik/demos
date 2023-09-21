@@ -10,14 +10,14 @@ export class StatisticService {
   constructor( private wordRepository: WordRepositoryService,) { }
 
   countWordsByStatus():Map<OptionsOfStatus, number>{
-    let amountWordsWithStatus= new Map();
+      let amountWordsWithStatus = new Map();
 
-   amountWordsWithStatus.set(OptionsOfStatus.Waiting,this.wordRepository.WordsByStatus(OptionsOfStatus.Waiting) );
-   amountWordsWithStatus.set(OptionsOfStatus.InProgress,this.wordRepository.WordsByStatus(OptionsOfStatus.InProgress));
-   amountWordsWithStatus.set(OptionsOfStatus.Completed,this.wordRepository.WordsByStatus(OptionsOfStatus.Completed));
+      amountWordsWithStatus.set(OptionsOfStatus.Waiting, this.wordRepository.wordsByStatus(OptionsOfStatus.Waiting));
+      amountWordsWithStatus.set(OptionsOfStatus.InProgress, this.wordRepository.wordsByStatus(OptionsOfStatus.InProgress));
+      amountWordsWithStatus.set(OptionsOfStatus.Completed, this.wordRepository.wordsByStatus(OptionsOfStatus.Completed));
 
-   console.log(amountWordsWithStatus)
-   return amountWordsWithStatus;
+      console.log(amountWordsWithStatus)
+      return amountWordsWithStatus;
   }
 
 
