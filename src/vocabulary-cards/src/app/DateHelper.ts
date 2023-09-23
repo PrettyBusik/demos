@@ -16,7 +16,7 @@ export class DateHelper {
         let today = new Date();
         today.setHours(0,0,0);
 
-        return today.getTime()/ 1000;
+        return Math.round(today.getTime()/ 1000);
     }
 
     static getNextDate(timestamp: number, numberOfDays: number): number {
