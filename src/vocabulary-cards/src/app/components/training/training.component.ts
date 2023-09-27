@@ -43,7 +43,7 @@ export class TrainingComponent {
       } else if (this.currentDirection === TrainingDirection.NativeToLearning) {
         this.allWords = this.shuffle(this.wordsForTodayTraining);
         this.currentDirection= TrainingDirection.LearningToNative;
-        this.isChangedDirection=true;
+        this.successedWords=0;
       } else {
         return
       }
@@ -55,10 +55,6 @@ export class TrainingComponent {
 
   successedWord() {
     this.successedWords++;
-    if (this.isChangedDirection){
-      this.successedWords=1;
-      this.isChangedDirection=false;
-    }
     this.showNextWord();
   }
 
