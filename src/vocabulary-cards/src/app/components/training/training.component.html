@@ -19,17 +19,17 @@
                class="line-bottom">{{currentWord.translation}}</p>
             <p class="text-muted fst-italic line-bottom"></p>
             <div class="d-flex flex-column flex-sm-row justify-content-end">
-                <button *ngIf="step===1" class="btn btn-primary mb-3 text-nowrap">Show</button>
-                <button *ngIf="step===2" class="btn btn-success mb-3 text-nowrap me-sm-3">Success</button>
-                <button *ngIf="step===2" class="btn btn-danger mb-3 text-nowrap">Fail</button>
+                <button *ngIf="step===1" (click)="show()" class="btn btn-primary mb-3 text-nowrap">Show</button>
+                <button *ngIf="step===2" (click)="successedWord()" class="btn btn-success mb-3 text-nowrap me-sm-3">Success</button>
+                <button *ngIf="step===2" (click)="failedWord()" class="btn btn-danger mb-3 text-nowrap">Fail</button>
             </div>
         </div>
         <div class="card-footer text-body-tertiary text-end">
             <span class="text-nowrap">
-                <span>Studied <i class="bi bi-arrow-right"></i> Native</span>
-                <span>Native <i class="bi bi-arrow-right"></i> Studied</span>
+                <span *ngIf="currentDirection===TrainingDirection.LearningToNative">Studied <i class="bi bi-arrow-right"></i> Native</span>
+                <span *ngIf="currentDirection===TrainingDirection.NativeToLearning">Native <i class="bi bi-arrow-right"></i> Studied</span>
             </span>
-            <span class="ms-4 text-nowrap">Completed: 13 of 20</span>
+            <span class="ms-4 text-nowrap">Completed: {{successedWords}} of {{wordsForTodayTraining.length}}</span>
         </div>
     </div>
 

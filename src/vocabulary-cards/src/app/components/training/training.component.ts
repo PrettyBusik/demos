@@ -14,19 +14,61 @@ import {AudioPlayerService} from "../../services/audio-player.service";
 })
 export class TrainingComponent {
   currentWord!: Word;
-  currentDirection: TrainingDirection=TrainingDirection.NativeToLearning;
-  step: number=1;
+  currentDirection: TrainingDirection = TrainingDirection.NativeToLearning;
+  isChangedDirection:boolean=false;
+  step: number = 1;
 
   wordsForTodayTraining: Word[] = []
+  allWords: Word[] = [];
+
+  failedWords: Word[] = [];
+  successedWords: number = 0;
 
   constructor(private wordsRepository: WordRepositoryService,
               private audioPlayer: AudioPlayerService) {
     this.wordsForTodayTraining = wordsRepository.getListWordsForTodayTraining(DateHelper.getTimeStampForToday());
+    this.allWords = this.shuffle(this.wordsForTodayTraining)
+    this.showNextWord();
   }
 
+  show() {
+    this.step = 2
+  }
+
+  showNextWord() {
+    if (this.allWords.length === 0) {
+      if (this.failedWords.length != 0) {
+        this.allWords = this.shuffle(this.failedWords);
+        this.failedWords = [];
+      } else if (this.currentDirection === TrainingDirection.NativeToLearning) {
+        this.allWords = this.shuffle(this.wordsForTodayTraining);
+        this.currentDirection= TrainingDirection.LearningToNative;
+        this.isChangedDirection=true;
+      } else {
+        return
+      }
+    }
+
+    this.currentWord = this.allWords.pop()!;
+    this.step = 1;
+  }
+
+  successedWord() {
+    this.successedWords++;
+    if (this.isChangedDirection){
+      this.successedWords=1;
+      this.isChangedDirection=false;
+    }
+    this.showNextWord();
+  }
+
+  failedWord() {
+    this.failedWords.push(this.currentWord);
+    this.showNextWord();
+  }
 
   private shuffle(words: Word[]) {
-    let shuffledWords:Word[]= [...words];
+    let shuffledWords: Word[] = [...words];
     for (let i = shuffledWords.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));
       [shuffledWords[i], shuffledWords[j]] = [shuffledWords[j], shuffledWords[i]];
