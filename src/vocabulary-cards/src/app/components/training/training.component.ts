@@ -1,9 +1,11 @@
-import {Component} from '@angular/core';
+import {Component, HostListener} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {WordRepositoryService} from "../../services/word-repository.service";
 import {DateHelper} from "../../DateHelper";
 import {TrainingDirection, Word} from "../../word";
 import {AudioPlayerService} from "../../services/audio-player.service";
+import {Settings} from "../../Settings";
+import {SettingsRepositoryService} from "../../services/settings-repository.service";
 
 @Component({
   selector: 'app-training',
@@ -15,7 +17,6 @@ import {AudioPlayerService} from "../../services/audio-player.service";
 export class TrainingComponent {
   currentWord!: Word;
   currentDirection: TrainingDirection = TrainingDirection.NativeToLearning;
-  isChangedDirection:boolean=false;
   step: number = 1;
 
   wordsForTodayTraining: Word[] = []
@@ -23,11 +24,14 @@ export class TrainingComponent {
 
   failedWords: Word[] = [];
   successedWords: number = 0;
+  settings:Settings;
 
   constructor(private wordsRepository: WordRepositoryService,
-              private audioPlayer: AudioPlayerService) {
+              private audioPlayer: AudioPlayerService,
+               settingsRepository:SettingsRepositoryService) {
     this.wordsForTodayTraining = wordsRepository.getListWordsForTodayTraining(DateHelper.getTimeStampForToday());
-    this.allWords = this.shuffle(this.wordsForTodayTraining)
+    this.allWords = this.shuffle(this.wordsForTodayTraining);
+    this.settings= settingsRepository.get();
     this.showNextWord();
   }
 
@@ -74,6 +78,34 @@ export class TrainingComponent {
 
   audio(link: string) {
     this.audioPlayer.play(link)
+  }
+
+  @HostListener("window:keydown.control.ArrowLeft", ["$event"])
+  controlLeft(event:KeyboardEvent){
+    if (this.settings.trainingUseHotKeys){
+      this.successedWord();
+    }
+  }
+
+  @HostListener("window:keydown.control.ArrowRight", ["$event"])
+  controlRight(event:KeyboardEvent){
+    if (this.settings.trainingUseHotKeys){
+      this.failedWord();
+    }
+  }
+
+  @HostListener("window:keydown.enter", ["$event"])
+  enter(event:KeyboardEvent){
+    if (this.settings.trainingUseHotKeys){
+      this.show();
+    }
+  }
+
+  @HostListener("window:keydown.ArrowUp", ["$event"])
+  up(event:KeyboardEvent){
+    if (this.settings.trainingUseHotKeys){
+      this.audio(this.currentWord.pronunciation);
+    }
   }
 
   protected readonly TrainingDirection = TrainingDirection;
