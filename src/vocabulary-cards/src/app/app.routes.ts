@@ -4,6 +4,7 @@ import {ListOfWordsComponent} from "./components/list-of-words/list-of-words.com
 import {SettingsComponent} from "./components/settings/settings.component";
 import {WordsForTrainingComponent} from "./components/words-for-traing/words-for-training.component";
 import {TrainingComponent} from "./components/training/training.component";
+import {SummaryComponent} from "./components/summery/summary.component";
 
 export const routes: Routes = [
     {path: "words/new", component: WordFormComponent},
@@ -11,5 +12,6 @@ export const routes: Routes = [
     {path: "words", component: ListOfWordsComponent},
     {path: "settings", component: SettingsComponent},
     {path: "learn-new", component: WordsForTrainingComponent},
-    {path: "training", component: TrainingComponent}
+    {path: "training", component: TrainingComponent},
+    {path:"summary", component:SummaryComponent}
 ];
