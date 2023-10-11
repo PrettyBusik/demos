@@ -58,9 +58,9 @@ export class WordsFilter {
 }
 
 export enum OptionsOfStatus {
-    Waiting = "waiting",
-    InProgress = "inProgress",
-    Completed = "completed",
+    Waiting = "Waiting",
+    InProgress = "In progress",
+    Completed = "Completed",
 }
 
 export enum TrainingDirection {

@@ -1,0 +1,220 @@
+<div class="col col-xl-8">
+    <h1 class="line-bottom display-6">Summary</h1>
+
+    <div class="row">
+        <div class="col-sm">
+            <div class="card line-bottom">
+                <div class="card-body">
+                    <h5 class="card-title">Was training words</h5>
+                    <table class="table table-borderless m-0 align-middle">
+                        <tbody>
+                        <tr>
+                            <td class="ps-0">Today</td>
+                            <td>
+                                No
+                            </td>
+                            <td class="pe-0 cell-narrow">
+                                <i class="text-danger bi bi-x-circle-fill"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ps-0">Yesterday</td>
+                            <td>
+                                No
+                            </td>
+                            <td class="pe-0 cell-narrow">
+                                <i class="text-danger bi bi-x-circle-fill"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ps-0">07.10.2023</td>
+                            <td>
+                                No
+                            </td>
+                            <td class="pe-0 cell-narrow">
+                                <i class="text-danger bi bi-x-circle-fill"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ps-0">06.10.2023</td>
+                            <td>
+                                No
+                            </td>
+                            <td class="pe-0 cell-narrow">
+                                <i class="text-danger bi bi-x-circle-fill"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ps-0">05.10.2023</td>
+                            <td>
+                                No
+                            </td>
+                            <td class="pe-0 cell-narrow">
+                                <i class="text-danger bi bi-x-circle-fill"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ps-0">04.10.2023</td>
+                            <td>
+                                No
+                            </td>
+                            <td class="pe-0 cell-narrow">
+                                <i class="text-danger bi bi-x-circle-fill"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ps-0">03.10.2023</td>
+                            <td>
+                                No
+                            </td>
+                            <td class="pe-0 cell-narrow">
+                                <i class="text-danger bi bi-x-circle-fill"></i>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card line-bottom">
+                <div class="card-body">
+                    <h5 class="card-title">Was learning new words</h5>
+                    <table class="table table-borderless m-0 align-middle">
+                        <tbody>
+                        <tr>
+                            <td class="ps-0">Today</td>
+                            <td>
+                                No
+                            </td>
+                            <td class="pe-0 cell-narrow">
+                                <i class="text-danger bi bi-x-circle-fill"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ps-0">Yesterday</td>
+                            <td>
+                                No
+                            </td>
+                            <td class="pe-0 cell-narrow">
+                                <i class="text-danger bi bi-x-circle-fill"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ps-0">07.10.2023</td>
+                            <td>
+                                No
+                            </td>
+                            <td class="pe-0 cell-narrow">
+                                <i class="text-danger bi bi-x-circle-fill"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ps-0">06.10.2023</td>
+                            <td>
+                                No
+                            </td>
+                            <td class="pe-0 cell-narrow">
+                                <i class="text-danger bi bi-x-circle-fill"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ps-0">05.10.2023</td>
+                            <td>
+                                No
+                            </td>
+                            <td class="pe-0 cell-narrow">
+                                <i class="text-danger bi bi-x-circle-fill"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ps-0">04.10.2023</td>
+                            <td>
+                                No
+                            </td>
+                            <td class="pe-0 cell-narrow">
+                                <i class="text-danger bi bi-x-circle-fill"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ps-0">03.10.2023</td>
+                            <td>
+                                No
+                            </td>
+                            <td class="pe-0 cell-narrow">
+                                <i class="text-danger bi bi-x-circle-fill"></i>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            <div class="card line-bottom">
+                <div class="card-body">
+                    <h5 class="card-title">Words by level</h5>
+                    <table class="table table-borderless m-0 align-middle">
+                        <tbody>
+                        <tr *ngFor="let recipient  of  amountWordsWithLevel|keyvalue">
+                            <td  class="ps-0 text-nowrap">{{"Level " + recipient.key}}</td>
+                            <td><span class="badge text-bg-light border">{{recipient.value}}</span></td>
+                            <td>
+                                <div class="progress rounded-0" style="height: 10px; min-width: 50px">
+                                    <div class="progress-bar" style="width: 100%"></div>
+                                </div>
+                            </td>
+
+                            <td class="pe-0 cell-narrow"><a routerLink="/words" [queryParams]="{'level' : recipient.key}" data-bs-toggle="tooltip" data-bs-title="See words"><i class="bi bi-link-45deg"></i></a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card line-bottom">
+                <div class="card-body">
+                    <h5 class="card-title">Words by status</h5>
+                    <table class="table table-borderless m-0 align-middle">
+                        <tbody>
+                        <tr *ngFor="let recipient of amountWordsWithStatus|keyvalue">
+                            <td class="ps-0 text-nowrap">{{recipient.key}}</td>
+                            <td><span class="badge text-bg-light border">{{recipient.value}}</span></td>
+                            <td>
+                                <div class="progress rounded-0" style="height: 10px; min-width: 50px">
+                                    <div class="progress-bar" style="width: 100%"></div>
+                                </div>
+                            </td>
+
+                            <td class="pe-0 cell-narrow"><a routerLink="/words"  [queryParams]="{'status':recipient.key}" data-bs-toggle="tooltip" data-bs-title="See words"><i class="bi bi-link-45deg"></i></a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Closest trainings</h5>
+                    <table class="table table-borderless m-0 align-middle">
+                        <tbody>
+                        <tr *ngFor="let recipient of closestTraining|keyvalue">
+                            <td  class="ps-0 text-nowrap">{{DateHelper.formatDate(recipient.key)}}</td>
+                            <td><span class="badge text-bg-light border">{{recipient.value}}</span></td>
+                            <td>
+                                <div class="progress rounded-0" style="height: 10px; min-width: 50px">
+                                    <div class="progress-bar" style="width: 100%"></div>
+                                </div>
+                            </td>
+
+                            <td class="pe-0 cell-narrow"><a routerLink="/words" [queryParams]="{'nextTrainingAt':recipient.key}" data-bs-toggle="tooltip" data-bs-title="See words"><i class="bi bi-link-45deg"></i></a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

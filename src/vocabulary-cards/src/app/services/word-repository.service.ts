@@ -123,6 +123,17 @@ export class WordRepositoryService {
         return wordsForTodayTraining;
     }
 
+    countWordsForNextTrainingDate(timestamp: number): number {
+        let allWords = this.getAllWords();
+        let countWordsForNextTrainingDate = 0;
+        for (let word of allWords) {
+            if (DateHelper.areDatesEqual(timestamp, word.nextTrainingAt!)) {
+                countWordsForNextTrainingDate++;
+            }
+        }
+        return countWordsForNextTrainingDate;
+    }
+
     wordsByStatus(status: OptionsOfStatus) {
         let allWords: Word[] = this.getAllWords();
         let count: number = 0;
