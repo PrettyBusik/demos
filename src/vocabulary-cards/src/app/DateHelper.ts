@@ -5,7 +5,7 @@ export class DateHelper {
         let date = new Date(timeStamp * 1000);
 
         let day = date.getDate().toString();
-        let month = (date.getMonth()+1).toString();
+        let month = (date.getMonth() + 1).toString();
         let year = date.getFullYear().toString();
 
         return day.padStart(2, "0") + "." + month.padStart(2, "0") + "." + year;
@@ -14,9 +14,9 @@ export class DateHelper {
     static getTimeStampForToday(): number {
         // @ts-ignore
         let today = new Date();
-        today.setHours(0,0,0);
+        today.setHours(0, 0, 0);
 
-        return Math.round(today.getTime()/ 1000);
+        return Math.round(today.getTime() / 1000);
     }
 
     static getNextDate(timestamp: number, numberOfDays: number): number {
@@ -31,7 +31,7 @@ export class DateHelper {
 
     }
 
-    static isDateLessOrEqual(timestamp1:number, timestamp2:number):boolean {
+    static isDateLessOrEqual(timestamp1: number, timestamp2: number): boolean {
         return timestamp1 < timestamp2;
 
     }
