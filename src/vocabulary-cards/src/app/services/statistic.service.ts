@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {WordRepositoryService} from "./word-repository.service";
 import {OptionsOfStatus} from "../word";
+import {DateHelper} from "../DateHelper";
 
 @Injectable({
   providedIn: 'root'
@@ -21,23 +22,25 @@ export class StatisticService {
   }
 
 
-  countWordsByLevel():Map<number, number>{
-      let amountWordsWithLevel = new Map();
+    countWordsByLevel(): Map<number, number> {
+        let amountWordsWithLevel = new Map();
 
-      amountWordsWithLevel.set(1, this.wordRepository.wordsByLevel(1));
-      amountWordsWithLevel.set(2, this.wordRepository.wordsByLevel(2));
-      amountWordsWithLevel.set(3, this.wordRepository.wordsByLevel(3));
-      amountWordsWithLevel.set(4, this.wordRepository.wordsByLevel(4));
-      amountWordsWithLevel.set(5, this.wordRepository.wordsByLevel(5));
-      amountWordsWithLevel.set(6, this.wordRepository.wordsByLevel(6));
-      amountWordsWithLevel.set(7, this.wordRepository.wordsByLevel(7));
-      amountWordsWithLevel.set(8, this.wordRepository.wordsByLevel(8));
+        for (let i = 1; i <= 8; i++) {
+            amountWordsWithLevel.set(i, this.wordRepository.wordsByLevel(i));
+        }
 
-      console.log(amountWordsWithLevel)
-      return amountWordsWithLevel
-  }
+        console.log(amountWordsWithLevel)
+        return amountWordsWithLevel
+    }
 
-    // countWordsByNextTrainDate(): Map<number, number>{
-    //   let amountWordsWithNextTrainDate= new Map();
-    // }
+    countWordsByNextTrainDate(amountDays: number): Map<number, number> {
+        let amountWordsWithNextTrainDate = new Map<number, number>();
+        let today = DateHelper.getTimeStampForToday();
+
+        for (let i = 0; i < amountDays; i++) {
+            let nextDay = DateHelper.getNextDate(today, i);
+            amountWordsWithNextTrainDate.set(nextDay, this.wordRepository.countWordsForNextTrainingDate(nextDay));
+        }
+        return amountWordsWithNextTrainDate;
+    }
 }

@@ -369,4 +369,25 @@ describe("WordRepository", () => {
 
         expect(result).toBe(1);
     });
+
+    it(' countWordsForNextTrainingDate() - should return amount of words for today training', function () {
+        let storage = jasmine.createSpyObj<StorageService>(["get"]);
+        let wordRepository = new WordRepositoryService(storage);
+
+        let word1 = new Word(1, "a", "book", "ppp", "verb", "book", 123123);
+        let word2 = new Word(2, "b", "glass", "ooo", "verb", "glass", 333333);
+        let word3 = new Word(3, "c", "dall", "aaa", "verb", "dall", 333333);
+
+
+        word1.nextTrainingAt= 111;
+        word2.nextTrainingAt= 222;
+        word3.nextTrainingAt= 111;
+
+        let allWords = [word1, word2, word3];
+        storage.get.and.returnValue(allWords);
+
+        let result= wordRepository.countWordsForNextTrainingDate(111);
+
+        expect(result).toBe(2);
+    });
 })

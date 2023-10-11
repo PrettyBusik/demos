@@ -4,8 +4,8 @@ export class DateHelper {
         // @ts-ignore
         let date = new Date(timeStamp * 1000);
 
-        let day = date.getDay().toString();
-        let month = date.getMonth().toString();
+        let day = date.getDate().toString();
+        let month = (date.getMonth()+1).toString();
         let year = date.getFullYear().toString();
 
         return day.padStart(2, "0") + "." + month.padStart(2, "0") + "." + year;
@@ -21,23 +21,18 @@ export class DateHelper {
 
     static getNextDate(timestamp: number, numberOfDays: number): number {
         // @ts-ignore
-        let dateFromTimestamp: number = new Date(timestamp * 1000);
         let amountSec = numberOfDays * 86400;
 
         return timestamp + amountSec
     }
 
     static areDatesEqual(timestamp1: number, timestamp2: number) {
-        if (timestamp1 === timestamp2) {
-            return true
-        }
-        return false;
+        return timestamp1 === timestamp2;
+
     }
 
     static isDateLessOrEqual(timestamp1:number, timestamp2:number):boolean {
-        if (timestamp1 < timestamp2) {
-            return true
-        }
-        return false;
+        return timestamp1 < timestamp2;
+
     }
 }
