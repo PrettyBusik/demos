@@ -29,4 +29,5 @@ export class HistoryService {
         let startLearning: Set<number> | null  = this.storage.get<Set<number>>("startLearning");
         return startLearning!= null? startLearning: new Set<number>();
     }
+
 }
