@@ -9,8 +9,8 @@ export class HistoryService {
     }
 
     addDateWithTraining(timestamp: number) {
-        let learned: Set<number> | null = this.storage.get<Set<number>>("learned");
-        learned?.add(timestamp);
+        let learned: Set<number> | null = this.getDatesWithTraining();
+        learned.add(timestamp);
         this.storage.set<Set<number>>("learned", learned!);
     }
 
@@ -20,8 +20,8 @@ export class HistoryService {
     }
 
     addDatesWithNewWords(timestamp: number) {
-        let startLearning: Set<number> | null = this.storage.get<Set<number>>("startLearning");
-        startLearning?.add(timestamp);
+        let startLearning: Set<number> | null = this.getDatesWithNweWords();
+        startLearning.add(timestamp);
         this.storage.set<Set<number>>("startLearning", startLearning!)
     }
 
