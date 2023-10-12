@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { HistoryService } from './history.service';
+import {HistoryService} from './history.service';
 import {StorageService} from "./storage.service";
 
 describe('HistoryService', () => {
@@ -52,5 +52,4 @@ describe('HistoryService', () => {
       expect(storage.get).toHaveBeenCalledTimes(1);
       expect(result).toEqual(prediction);
   })
-
 });
