@@ -3,6 +3,7 @@ import {WordRepositoryService} from "./word-repository.service";
 import {SettingsRepositoryService} from "./settings-repository.service";
 import {OptionsOfStatus, Word} from "../word";
 import {DateHelper} from "../DateHelper";
+import {HistoryService} from "./history.service";
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,8 @@ export class TrainingService {
   ])
 
   constructor(private wordsRepository: WordRepositoryService,
-              private settingsRepository: SettingsRepositoryService) {
+              private settingsRepository: SettingsRepositoryService,
+              private history: HistoryService) {
   }
 
   getNextWordsForTraining(): Word[] {
@@ -35,6 +37,7 @@ export class TrainingService {
       word.level = 1;
       word.nextTrainingAt = DateHelper.getTimeStampForToday();
       this.wordsRepository.updateWord(word);
+      this.history.addDatesWithNewWords(word.lastTrainingAt!);
     }
   }
 
@@ -43,6 +46,7 @@ export class TrainingService {
     word.nextTrainingAt = DateHelper.getTimeStampForToday();
     word.lastTrainingAt = DateHelper.getTimeStampForToday();
     this.wordsRepository.updateWord(word)
+    this.history.addDateWithTraining(word.lastTrainingAt);
   }
 
   successfulWord(word:Word){
@@ -52,6 +56,7 @@ export class TrainingService {
       word.status = OptionsOfStatus.Completed;
       word.lastTrainingAt = DateHelper.getTimeStampForToday();
 
+
       this.wordsRepository.updateWord(word);
       return
     }
@@ -60,6 +65,7 @@ export class TrainingService {
     word.lastTrainingAt = DateHelper.getTimeStampForToday();
     word.level!++;
     this.wordsRepository.updateWord(word)
+    this.history.addDateWithTraining(word.lastTrainingAt!);
   }
 
 }
