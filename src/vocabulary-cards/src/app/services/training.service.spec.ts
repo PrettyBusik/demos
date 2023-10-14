@@ -4,21 +4,24 @@ import {TrainingService} from "./training.service";
 import {Settings} from "../Settings";
 import {OptionsOfStatus, Word} from "../word";
 import {DateHelper} from "../DateHelper";
+import {HistoryService} from "./history.service";
 
 describe("TrainingService", ()=>{
     it('getNextWordsForTraining() - should get next words for training', function () {
-        let settingsRepository= jasmine.createSpyObj<SettingsRepositoryService>(["get"]);
-        let wordsRepository= jasmine.createSpyObj<WordRepositoryService>(["getNextWaitingWords"]);
+        let settingsRepository = jasmine.createSpyObj<SettingsRepositoryService>(["get"]);
+        let wordsRepository = jasmine.createSpyObj<WordRepositoryService>(["getNextWaitingWords"]);
+        let history = jasmine.createSpyObj<HistoryService>(['addDatesWithNewWords']);
 
-        let trainingService = new TrainingService(wordsRepository, settingsRepository);
 
-        let setting = new Settings(0,2,true,true);
+        let trainingService = new TrainingService(wordsRepository, settingsRepository, history);
+
+        let setting = new Settings(0, 2, true, true);
         settingsRepository.get.and.returnValue(setting);
 
         let word1 = new Word(1, "a", "book", "ppp", "verb", "book", 123123);
         let word2 = new Word(2, "b", "glass", "ooo", "verb", "glass", 333333);
         let word3 = new Word(3, "c", "dall", "aaa", "verb", "dall", 333333);
-        let allWords= [word1,word2,word3];
+        let allWords = [word1, word2, word3];
 
         wordsRepository.getNextWaitingWords.and.returnValue(allWords);
 
@@ -30,9 +33,10 @@ describe("TrainingService", ()=>{
 
     it('startLearning() - should run training and update word', function () {
         let settingsRepository= jasmine.createSpyObj<SettingsRepositoryService>(["get"]);
-        let wordsRepository= jasmine.createSpyObj<WordRepositoryService>(["updateWord"]);
+        let wordsRepository = jasmine.createSpyObj<WordRepositoryService>(["updateWord"]);
+        let history = jasmine.createSpyObj<HistoryService>(['addDatesWithNewWords']);
 
-        let trainingService = new TrainingService(wordsRepository, settingsRepository);
+        let trainingService = new TrainingService(wordsRepository, settingsRepository, history);
 
         let word1 = new Word(1, "a", "book", "ppp", "verb", "book", 123123);
         let word2 = new Word(2, "b", "glass", "ooo", "verb", "glass", 333333);
@@ -46,14 +50,16 @@ describe("TrainingService", ()=>{
             expect(word.nextTrainingAt).toBe(DateHelper.getTimeStampForToday());
 
             expect(wordsRepository.updateWord).toHaveBeenCalledWith(word);
+            expect(history.addDatesWithNewWords).toHaveBeenCalledWith(word.lastTrainingAt!);
         }
     });
 
     it(' failWord() - should work properly', function () {
         let settingsRepository= jasmine.createSpyObj<SettingsRepositoryService>(["get"]);
-        let wordsRepository= jasmine.createSpyObj<WordRepositoryService>(["updateWord"]);
+        let wordsRepository = jasmine.createSpyObj<WordRepositoryService>(["updateWord"]);
+        let history = jasmine.createSpyObj<HistoryService>(['addDateWithTraining']);
 
-        let trainingService = new TrainingService(wordsRepository, settingsRepository);
+        let trainingService = new TrainingService(wordsRepository, settingsRepository, history);
 
         let word1 = new Word(1, "a", "book", "ppp", "verb", "book", 123123);
         trainingService.failWord(word1);
@@ -63,13 +69,15 @@ describe("TrainingService", ()=>{
         expect(word1.lastTrainingAt).toBe(DateHelper.getTimeStampForToday());
 
         expect(wordsRepository.updateWord).toHaveBeenCalledWith(word1);
+        expect(history.addDateWithTraining).toHaveBeenCalledWith(word1.lastTrainingAt!);
     });
 
     it('successfulWord() - should work properly', function () {
         let settingsRepository= jasmine.createSpyObj<SettingsRepositoryService>(["get"]);
-        let wordsRepository= jasmine.createSpyObj<WordRepositoryService>(["updateWord"]);
+        let wordsRepository = jasmine.createSpyObj<WordRepositoryService>(["updateWord"]);
+        let history = jasmine.createSpyObj<HistoryService>(['addDateWithTraining']);
 
-        let trainingService = new TrainingService(wordsRepository, settingsRepository);
+        let trainingService = new TrainingService(wordsRepository, settingsRepository, history);
 
         let word1 = new Word(1, "a", "book", "ppp", "verb", "book", 123123);
         word1.level=8;
@@ -81,13 +89,15 @@ describe("TrainingService", ()=>{
         expect(word1.lastTrainingAt).toEqual(DateHelper.getTimeStampForToday());
 
         expect(wordsRepository.updateWord).toHaveBeenCalledWith(word1);
+        expect(history.addDateWithTraining).toHaveBeenCalledWith(word1.lastTrainingAt!);
     });
 
     it('successfulWord() - should work properly if word is learned', function () {
         let settingsRepository= jasmine.createSpyObj<SettingsRepositoryService>(["get"]);
-        let wordsRepository= jasmine.createSpyObj<WordRepositoryService>(["updateWord"]);
+        let wordsRepository = jasmine.createSpyObj<WordRepositoryService>(["updateWord"]);
+        let history = jasmine.createSpyObj<HistoryService>(['addDateWithTraining']);
 
-        let trainingService = new TrainingService(wordsRepository, settingsRepository);
+        let trainingService = new TrainingService(wordsRepository, settingsRepository, history);
 
         let word1 = new Word(1, "a", "book", "ppp", "verb", "book", 123123);
         word1.level=5;
@@ -98,5 +108,6 @@ describe("TrainingService", ()=>{
         expect(word1.level).toEqual(6);
 
         expect(wordsRepository.updateWord).toHaveBeenCalledWith(word1);
+        expect(history.addDateWithTraining).toHaveBeenCalledWith(word1.lastTrainingAt!);
     });
 });

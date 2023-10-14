@@ -58,6 +58,7 @@ export class TrainingService {
 
 
       this.wordsRepository.updateWord(word);
+      this.history.addDateWithTraining(word.lastTrainingAt!);
       return
     }
 
