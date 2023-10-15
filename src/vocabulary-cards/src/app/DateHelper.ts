@@ -32,7 +32,7 @@ export class DateHelper {
     }
 
     static isDateLessOrEqual(timestamp1: number, timestamp2: number): boolean {
-        return timestamp1 < timestamp2;
+        return timestamp1 <= timestamp2;
 
     }
 }

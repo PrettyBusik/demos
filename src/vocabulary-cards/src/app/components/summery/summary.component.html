@@ -11,10 +11,12 @@
                         <tr>
                             <td class="ps-0">{{DateHelper.formatDate(date)}}</td>
                             <td>
-                                {{haveWordsBeenPractised.get(date)}}
+                                {{haveWordsBeenPractised.get(date) ? "Yes" : "No"}}
                             </td>
-                            <td class="pe-0 cell-narrow">
-                                <i class="text-danger bi bi-x-circle-fill"></i>
+                            <td class="pe-0 cell-narrow"><i *ngIf="!haveNewWordsBeenPractised.get(date)"
+                                                            class="text-danger bi bi-x-circle-fill"></i>
+                                <i *ngIf="haveWordsBeenPractised.get(date)"
+                                   class="text-success bi bi-check-circle-fill"></i>
                             </td>
                         </tr>
                         </tbody>
@@ -31,10 +33,13 @@
                         <tr *ngFor="let date of getDatesWithNewPracticedWords()">
                             <td class="ps-0">{{DateHelper.formatDate(date)}}</td>
                             <td>
-                                {{haveNewWordsBeenPractised.get(date)}}
+                                {{haveNewWordsBeenPractised.get(date) ? "Yes" : "No"}}
                             </td>
                             <td class="pe-0 cell-narrow">
-                                <i class="text-danger bi bi-x-circle-fill"></i>
+                                <i *ngIf="!haveNewWordsBeenPractised.get(date)"
+                                   class="text-danger bi bi-x-circle-fill"></i>
+                                <i *ngIf="haveNewWordsBeenPractised.get(date)"
+                                   class="text-success bi bi-check-circle-fill"></i>
                             </td>
                         </tr>
                         </tbody>

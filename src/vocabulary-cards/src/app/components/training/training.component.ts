@@ -1,4 +1,4 @@
-import {Component, HostListener} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {WordRepositoryService} from "../../services/word-repository.service";
 import {DateHelper} from "../../DateHelper";
@@ -6,44 +6,52 @@ import {TrainingDirection, Word} from "../../word";
 import {AudioPlayerService} from "../../services/audio-player.service";
 import {Settings} from "../../Settings";
 import {SettingsRepositoryService} from "../../services/settings-repository.service";
+import {RouterLink} from "@angular/router";
+import {TrainingService} from "../../services/training.service";
 
 @Component({
-  selector: 'app-training',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './training.component.html',
-  styleUrls: ['./training.component.css']
+    selector: 'app-training',
+    standalone: true,
+    imports: [CommonModule, RouterLink],
+    templateUrl: './training.component.html',
+    styleUrls: ['./training.component.css']
 })
-export class TrainingComponent {
-  currentWord!: Word;
-  currentDirection: TrainingDirection = TrainingDirection.NativeToLearning;
-  step: number = 1;
+export class TrainingComponent implements OnInit {
+    currentWord!: Word;
+    currentDirection: TrainingDirection = TrainingDirection.NativeToLearning;
+    step: number = 1;
 
-  wordsForTodayTraining: Word[] = []
-  allWords: Word[] = [];
+    wordsForTodayTraining: Word[] = []
+    allWords: Word[] = [];
 
-  failedWords: Word[] = [];
-  successedWords: number = 0;
-  settings:Settings;
+    failedWords: Word[] = [];
+    successedWords: number = 0;
+    settings!: Settings;
 
-  constructor(private wordsRepository: WordRepositoryService,
-              private audioPlayer: AudioPlayerService,
-               settingsRepository:SettingsRepositoryService) {
-    this.wordsForTodayTraining = wordsRepository.getListWordsForTodayTraining(DateHelper.getTimeStampForToday());
-    this.allWords = this.shuffle(this.wordsForTodayTraining);
-    this.settings= settingsRepository.get();
-    this.showNextWord();
-  }
+    constructor(private wordsRepository: WordRepositoryService,
+                private audioPlayer: AudioPlayerService,
+                private settingsRepository: SettingsRepositoryService,
+                private trainingService: TrainingService) {
+    }
 
-  show() {
-    this.step = 2
-  }
+    ngOnInit() {
+        this.wordsForTodayTraining = this.wordsRepository.getListWordsForTodayTraining(DateHelper.getTimeStampForToday());
 
-  showNextWord() {
-    if (this.allWords.length === 0) {
-      if (this.failedWords.length != 0) {
-        this.allWords = this.shuffle(this.failedWords);
-        this.failedWords = [];
+        console.log(this.wordsForTodayTraining)
+        this.allWords = this.shuffle(this.wordsForTodayTraining);
+        this.settings = this.settingsRepository.get();
+        this.showNextWord();
+    }
+
+    show() {
+        this.step = 2
+    }
+
+    showNextWord() {
+        if (this.allWords.length === 0) {
+            if (this.failedWords.length != 0) {
+                this.allWords = this.shuffle(this.failedWords);
+                this.failedWords = [];
       } else if (this.currentDirection === TrainingDirection.NativeToLearning) {
         this.allWords = this.shuffle(this.wordsForTodayTraining);
         this.currentDirection= TrainingDirection.LearningToNative;
@@ -58,13 +66,15 @@ export class TrainingComponent {
   }
 
   successedWord() {
-    this.successedWords++;
-    this.showNextWord();
+      this.successedWords++;
+      this.trainingService.successfulWord(this.currentWord);
+      this.showNextWord();
   }
 
   failedWord() {
-    this.failedWords.push(this.currentWord);
-    this.showNextWord();
+      this.failedWords.push(this.currentWord);
+      this.trainingService.failWord(this.currentWord);
+      this.showNextWord();
   }
 
   private shuffle(words: Word[]) {
