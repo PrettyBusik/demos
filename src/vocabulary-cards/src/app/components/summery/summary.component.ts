@@ -16,6 +16,7 @@ export class SummaryComponent {
     amountWordsWithLevel: Map<number, number>;
     amountWordsWithStatus: Map<OptionsOfStatus, number>;
     closestTraining: Map<number, number>;
+    haveWordsBeenPractised: Map<number, boolean>;
 
 
     constructor(private statistic: StatisticService) {
@@ -24,6 +25,15 @@ export class SummaryComponent {
         this.amountWordsWithStatus = statistic.countWordsByStatus();
 
         this.closestTraining = statistic.countWordsByNextTrainDate(5);
+
+        this.haveWordsBeenPractised = statistic.areTrainedWordsForDates(7);
+    }
+
+    getDatesWithPractice(): number[] {
+        return Array
+            .from(this.haveWordsBeenPractised.keys())
+            .sort()
+            .reverse();
     }
 
     protected readonly DateHelper = DateHelper;

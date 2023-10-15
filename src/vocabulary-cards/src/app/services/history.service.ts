@@ -9,25 +9,26 @@ export class HistoryService {
     }
 
     addDateWithTraining(timestamp: number) {
-        let learned: Set<number> | null = this.getDatesWithTraining();
+        let learned: Set<number> = this.getDatesWithTraining();
         learned.add(timestamp);
-        this.storage.set<Set<number>>("learned", learned);
+        this.storage.set<number[]>("learned", Array.from(learned));
     }
 
     getDatesWithTraining(): Set<number> {
-        let learned: Set<number> | null = this.storage.get<Set<number>>("learned")
-        return learned != null ? learned : new Set<number>();
+        let learned: number[] | null = this.storage.get<number[]>("learned")
+        console.log("learned=" + learned);
+        return new Set(learned === null ? [] : learned);
     }
 
     addDatesWithNewWords(timestamp: number) {
-        let startLearning: Set<number> | null = this.getDatesWithNweWords();
+        let startLearning: Set<number> = this.getDatesWithNweWords();
         startLearning.add(timestamp);
-        this.storage.set<Set<number>>("startLearning", startLearning)
+        this.storage.set<number[]>("startLearning", Array.from(startLearning))
     }
 
     getDatesWithNweWords(): Set<number> {
-        let startLearning: Set<number> | null  = this.storage.get<Set<number>>("startLearning");
-        return startLearning!= null? startLearning: new Set<number>();
+        let startLearning: number[] | null = this.storage.get<number[]>("startLearning");
+        return new Set(startLearning === null ? [] : startLearning);
     }
 
 }

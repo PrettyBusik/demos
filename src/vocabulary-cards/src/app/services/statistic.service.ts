@@ -2,24 +2,27 @@ import {Injectable} from '@angular/core';
 import {WordRepositoryService} from "./word-repository.service";
 import {OptionsOfStatus} from "../word";
 import {DateHelper} from "../DateHelper";
+import {HistoryService} from "./history.service";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class StatisticService {
 
-  constructor( private wordRepository: WordRepositoryService,) { }
+    constructor(private wordRepository: WordRepositoryService,
+                private history: HistoryService) {
+    }
 
-  countWordsByStatus():Map<OptionsOfStatus, number>{
-      let amountWordsWithStatus = new Map();
+    countWordsByStatus(): Map<OptionsOfStatus, number> {
+        let amountWordsWithStatus = new Map();
 
-      amountWordsWithStatus.set(OptionsOfStatus.Waiting, this.wordRepository.wordsByStatus(OptionsOfStatus.Waiting));
-      amountWordsWithStatus.set(OptionsOfStatus.InProgress, this.wordRepository.wordsByStatus(OptionsOfStatus.InProgress));
-      amountWordsWithStatus.set(OptionsOfStatus.Completed, this.wordRepository.wordsByStatus(OptionsOfStatus.Completed));
+        amountWordsWithStatus.set(OptionsOfStatus.Waiting, this.wordRepository.wordsByStatus(OptionsOfStatus.Waiting));
+        amountWordsWithStatus.set(OptionsOfStatus.InProgress, this.wordRepository.wordsByStatus(OptionsOfStatus.InProgress));
+        amountWordsWithStatus.set(OptionsOfStatus.Completed, this.wordRepository.wordsByStatus(OptionsOfStatus.Completed));
 
-      console.log(amountWordsWithStatus)
-      return amountWordsWithStatus;
-  }
+        console.log(amountWordsWithStatus)
+        return amountWordsWithStatus;
+    }
 
 
     countWordsByLevel(): Map<number, number> {
@@ -42,5 +45,21 @@ export class StatisticService {
             amountWordsWithNextTrainDate.set(nextDay, this.wordRepository.countWordsForNextTrainingDate(nextDay));
         }
         return amountWordsWithNextTrainDate;
+    }
+
+    areTrainedWordsForDates(amountDays: number): Map<number, boolean> {
+        let areTrainedWordsForDates = new Map<number, boolean>();
+        let today = DateHelper.getTimeStampForToday();
+        let datesWithTraining: Set<number> | [] = this.history.getDatesWithTraining();
+
+        for (let i = 0; i < amountDays; i++) {
+            let nextDay = DateHelper.getNextDate(today, -i);
+            if (datesWithTraining.has(nextDay)) {
+                areTrainedWordsForDates.set(nextDay, true);
+            } else {
+                areTrainedWordsForDates.set(nextDay, false);
+            }
+        }
+        return areTrainedWordsForDates;
     }
 }

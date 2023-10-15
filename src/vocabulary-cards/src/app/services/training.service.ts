@@ -37,7 +37,7 @@ export class TrainingService {
       word.level = 1;
       word.nextTrainingAt = DateHelper.getTimeStampForToday();
       this.wordsRepository.updateWord(word);
-      this.history.addDatesWithNewWords(word.lastTrainingAt!);
+      this.history.addDatesWithNewWords(DateHelper.getTimeStampForToday());
     }
   }
 
