@@ -16,7 +16,6 @@ export class HistoryService {
 
     getDatesWithTraining(): Set<number> {
         let learned: number[] | null = this.storage.get<number[]>("learned")
-        console.log("learned=" + learned);
         return new Set(learned === null ? [] : learned);
     }
 

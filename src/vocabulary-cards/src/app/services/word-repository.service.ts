@@ -47,7 +47,6 @@ export class WordRepositoryService {
                 allWords.splice(i, 1, word)
             }
         }
-        console.log(allWords)
         this.storage.set<Word[]>("words", allWords);
     }
 

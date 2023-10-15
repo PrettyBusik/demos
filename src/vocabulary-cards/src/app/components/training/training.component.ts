@@ -37,7 +37,7 @@ export class TrainingComponent implements OnInit {
     ngOnInit() {
         this.wordsForTodayTraining = this.wordsRepository.getListWordsForTodayTraining(DateHelper.getTimeStampForToday());
 
-        console.log(this.wordsForTodayTraining)
+
         this.allWords = this.shuffle(this.wordsForTodayTraining);
         this.settings = this.settingsRepository.get();
         this.showNextWord();

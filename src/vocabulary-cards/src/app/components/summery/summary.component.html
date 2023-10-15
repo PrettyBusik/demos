@@ -13,10 +13,9 @@
                             <td>
                                 {{haveWordsBeenPractised.get(date) ? "Yes" : "No"}}
                             </td>
-                            <td class="pe-0 cell-narrow"><i *ngIf="!haveNewWordsBeenPractised.get(date)"
-                                                            class="text-danger bi bi-x-circle-fill"></i>
-                                <i *ngIf="haveWordsBeenPractised.get(date)"
-                                   class="text-success bi bi-check-circle-fill"></i>
+                            <td class="pe-0 cell-narrow">
+                                <i *ngIf="!haveNewWordsBeenPractised.get(date)" class="text-danger bi bi-x-circle-fill"></i>
+                                <i *ngIf="haveWordsBeenPractised.get(date)" class="text-success bi bi-check-circle-fill"></i>
                             </td>
                         </tr>
                         </tbody>

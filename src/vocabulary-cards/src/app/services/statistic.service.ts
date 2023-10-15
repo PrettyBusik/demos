@@ -20,7 +20,6 @@ export class StatisticService {
         amountWordsWithStatus.set(OptionsOfStatus.InProgress, this.wordRepository.wordsByStatus(OptionsOfStatus.InProgress));
         amountWordsWithStatus.set(OptionsOfStatus.Completed, this.wordRepository.wordsByStatus(OptionsOfStatus.Completed));
 
-        console.log(amountWordsWithStatus)
         return amountWordsWithStatus;
     }
 
@@ -32,7 +31,6 @@ export class StatisticService {
             amountWordsWithLevel.set(i, this.wordRepository.wordsByLevel(i));
         }
 
-        console.log(amountWordsWithLevel)
         return amountWordsWithLevel
     }
 
