@@ -62,4 +62,21 @@ export class StatisticService {
         }
         return areTrainedWordsForDates;
     }
+
+    areNewWordsBeenStarted(amountDays:number):Map<number,boolean>{
+        let areNewWordsBeenStarted= new Map<number, boolean>();
+
+        let today = DateHelper.getTimeStampForToday();
+        let datesWithNewWords: Set<number> | [] = this.history.getDatesWithNweWords();
+
+        for (let i = 0; i < amountDays; i++) {
+            let nextDay = DateHelper.getNextDate(today, -i);
+            if (datesWithNewWords.has(nextDay)) {
+                areNewWordsBeenStarted.set(nextDay, true);
+            } else {
+                areNewWordsBeenStarted.set(nextDay, false);
+            }
+        }
+        return areNewWordsBeenStarted;
+    }
 }
