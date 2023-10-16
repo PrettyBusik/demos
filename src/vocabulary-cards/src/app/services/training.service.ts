@@ -46,7 +46,7 @@ export class TrainingService {
     word.nextTrainingAt = DateHelper.getTimeStampForToday();
     word.lastTrainingAt = DateHelper.getTimeStampForToday();
     this.wordsRepository.updateWord(word)
-    this.history.addDateWithTraining(word.lastTrainingAt);
+    this.history.addDateWithTraining(DateHelper.getTimeStampForToday());
   }
 
   successfulWord(word:Word){
@@ -58,7 +58,7 @@ export class TrainingService {
 
 
       this.wordsRepository.updateWord(word);
-      this.history.addDateWithTraining(word.lastTrainingAt!);
+      this.history.addDateWithTraining(DateHelper.getTimeStampForToday());
       return
     }
 
@@ -66,7 +66,7 @@ export class TrainingService {
     word.lastTrainingAt = DateHelper.getTimeStampForToday();
     word.level!++;
     this.wordsRepository.updateWord(word)
-    this.history.addDateWithTraining(word.lastTrainingAt!);
+    this.history.addDateWithTraining(DateHelper.getTimeStampForToday());
   }
 
 }
