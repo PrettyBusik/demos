@@ -7,8 +7,8 @@
 </div>
 
 <!-- The table is here -->
-<app-words-table [words]="wordsForTraining" [showEditLink]="false"></app-words-table>
+<app-words-table *ngIf="wordsForTraining.length>0" [words]="wordsForTraining" [showEditLink]="false"></app-words-table>
 
-<div class="d-flex justify-content-end">
+<div *ngIf="wordsForTraining.length>0" class="d-flex justify-content-end">
     <button (click)="startTraining()" class="btn btn-primary">Start training</button>
 </div>

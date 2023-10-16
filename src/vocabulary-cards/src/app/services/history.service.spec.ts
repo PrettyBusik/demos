@@ -34,7 +34,7 @@ describe('HistoryService', () => {
     expectation.add(333);
     expectation.add(444);
 
-    expect(storage.set).toHaveBeenCalledWith("learned", expectation);
+    expect(storage.set).toHaveBeenCalledWith("learned", Array.from(expectation));
   });
   it('getDatesWithTraining() - should get dates for trained words', () => {
     let storage = jasmine.createSpyObj<StorageService>(['get']);
@@ -84,7 +84,7 @@ describe('HistoryService', () => {
     expectation.add(333);
     expectation.add(444);
 
-    expect(storage.set).toHaveBeenCalledWith("startLearning", expectation);
+    expect(storage.set).toHaveBeenCalledWith("startLearning", Array.from(expectation));
   });
 
   it('getDatesWithNweWords() - should get dates for new words', function () {

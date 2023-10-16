@@ -20,7 +20,6 @@ export class StatisticService {
         amountWordsWithStatus.set(OptionsOfStatus.InProgress, this.wordRepository.wordsByStatus(OptionsOfStatus.InProgress));
         amountWordsWithStatus.set(OptionsOfStatus.Completed, this.wordRepository.wordsByStatus(OptionsOfStatus.Completed));
 
-        console.log(amountWordsWithStatus)
         return amountWordsWithStatus;
     }
 
@@ -32,7 +31,6 @@ export class StatisticService {
             amountWordsWithLevel.set(i, this.wordRepository.wordsByLevel(i));
         }
 
-        console.log(amountWordsWithLevel)
         return amountWordsWithLevel
     }
 
@@ -50,7 +48,7 @@ export class StatisticService {
     areTrainedWordsForDates(amountDays: number): Map<number, boolean> {
         let areTrainedWordsForDates = new Map<number, boolean>();
         let today = DateHelper.getTimeStampForToday();
-        let datesWithTraining: Set<number> | [] = this.history.getDatesWithTraining();
+        let datesWithTraining: Set<number> = this.history.getDatesWithTraining();
 
         for (let i = 0; i < amountDays; i++) {
             let nextDay = DateHelper.getNextDate(today, -i);
@@ -61,5 +59,22 @@ export class StatisticService {
             }
         }
         return areTrainedWordsForDates;
+    }
+
+    areNewWordsBeenStarted(amountDays:number):Map<number,boolean>{
+        let areNewWordsBeenStarted= new Map<number, boolean>();
+
+        let today = DateHelper.getTimeStampForToday();
+        let datesWithNewWords: Set<number> | [] = this.history.getDatesWithNweWords();
+
+        for (let i = 0; i < amountDays; i++) {
+            let nextDay = DateHelper.getNextDate(today, -i);
+            if (datesWithNewWords.has(nextDay)) {
+                areNewWordsBeenStarted.set(nextDay, true);
+            } else {
+                areNewWordsBeenStarted.set(nextDay, false);
+            }
+        }
+        return areNewWordsBeenStarted;
     }
 }

@@ -11,10 +11,11 @@
                         <tr>
                             <td class="ps-0">{{DateHelper.formatDate(date)}}</td>
                             <td>
-                                {{haveWordsBeenPractised.get(date)}}
+                                {{haveWordsBeenPractised.get(date) ? "Yes" : "No"}}
                             </td>
                             <td class="pe-0 cell-narrow">
-                                <i class="text-danger bi bi-x-circle-fill"></i>
+                                <i *ngIf="!haveNewWordsBeenPractised.get(date)" class="text-danger bi bi-x-circle-fill"></i>
+                                <i *ngIf="haveWordsBeenPractised.get(date)" class="text-success bi bi-check-circle-fill"></i>
                             </td>
                         </tr>
                         </tbody>
@@ -28,67 +29,16 @@
                     <h5 class="card-title">Was learning new words</h5>
                     <table class="table table-borderless m-0 align-middle">
                         <tbody>
-                        <tr>
-                            <td class="ps-0">Today</td>
+                        <tr *ngFor="let date of getDatesWithNewPracticedWords()">
+                            <td class="ps-0">{{DateHelper.formatDate(date)}}</td>
                             <td>
-                                No
+                                {{haveNewWordsBeenPractised.get(date) ? "Yes" : "No"}}
                             </td>
                             <td class="pe-0 cell-narrow">
-                                <i class="text-danger bi bi-x-circle-fill"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="ps-0">Yesterday</td>
-                            <td>
-                                No
-                            </td>
-                            <td class="pe-0 cell-narrow">
-                                <i class="text-danger bi bi-x-circle-fill"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="ps-0">07.10.2023</td>
-                            <td>
-                                No
-                            </td>
-                            <td class="pe-0 cell-narrow">
-                                <i class="text-danger bi bi-x-circle-fill"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="ps-0">06.10.2023</td>
-                            <td>
-                                No
-                            </td>
-                            <td class="pe-0 cell-narrow">
-                                <i class="text-danger bi bi-x-circle-fill"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="ps-0">05.10.2023</td>
-                            <td>
-                                No
-                            </td>
-                            <td class="pe-0 cell-narrow">
-                                <i class="text-danger bi bi-x-circle-fill"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="ps-0">04.10.2023</td>
-                            <td>
-                                No
-                            </td>
-                            <td class="pe-0 cell-narrow">
-                                <i class="text-danger bi bi-x-circle-fill"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="ps-0">03.10.2023</td>
-                            <td>
-                                No
-                            </td>
-                            <td class="pe-0 cell-narrow">
-                                <i class="text-danger bi bi-x-circle-fill"></i>
+                                <i *ngIf="!haveNewWordsBeenPractised.get(date)"
+                                   class="text-danger bi bi-x-circle-fill"></i>
+                                <i *ngIf="haveNewWordsBeenPractised.get(date)"
+                                   class="text-success bi bi-check-circle-fill"></i>
                             </td>
                         </tr>
                         </tbody>

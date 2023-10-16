@@ -1,4 +1,4 @@
-<div class="js-body">
+<div *ngIf="wordsForTodayTraining.length !==0" class="js-body">
     <h1 class="line-bottom display-6">Training</h1>
 
     <div class="card">
@@ -33,10 +33,20 @@
         </div>
     </div>
 
+
     <div *ngIf="settings.trainingUseHotKeys" class="text-body-tertiary line-top">
-        <span  class="me-2 text-nowrap"><code>Enter</code> – Show;</span>
+        <span class="me-2 text-nowrap"><code>Enter</code> – Show;</span>
         <span class="me-2 text-nowrap"><code>Up</code> – Pronounce;</span>
         <span class="me-2 text-nowrap"><code>Ctrl+Left</code> – Success;</span>
         <span class="text-nowrap"><code>Ctrl+Right</code> – Fail</span>
     </div>
+</div>
+
+<div *ngIf="wordsForTodayTraining.length ===0 " class="text-center">
+    <div class="display-6 text-center line-bottom">
+        No words for training
+    </div>
+    <a routerLink="/learn-new" class="btn btn-primary">
+        Learn new words
+    </a>
 </div>
