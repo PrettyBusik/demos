@@ -48,7 +48,7 @@ export class StatisticService {
     areTrainedWordsForDates(amountDays: number): Map<number, boolean> {
         let areTrainedWordsForDates = new Map<number, boolean>();
         let today = DateHelper.getTimeStampForToday();
-        let datesWithTraining: Set<number> | [] = this.history.getDatesWithTraining();
+        let datesWithTraining: Set<number> = this.history.getDatesWithTraining();
 
         for (let i = 0; i < amountDays; i++) {
             let nextDay = DateHelper.getNextDate(today, -i);
